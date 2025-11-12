@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "1032090541001",
+    "project_id": "batch-notice-app",
+    "storage_bucket": "batch-notice-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032090541001:android:3d4d50238ca6cc7cc7a618",
+        "android_client_info": {
+          "package_name": "com.example.batch_notice_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_PR5PrEFUkjuCF4TvPoIqg36Jz4KhNkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032090541001:android:b852c756baf86d2dc7a618",
+        "android_client_info": {
+          "package_name": "com.example.batch_notice_app_new"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_PR5PrEFUkjuCF4TvPoIqg36Jz4KhNkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032090541001:android:22692be15a3beb60c7a618",
+        "android_client_info": {
+          "package_name": "com.sagnik.batchnotice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_PR5PrEFUkjuCF4TvPoIqg36Jz4KhNkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
