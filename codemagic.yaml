@@ -1,13 +1,10 @@
 workflows:
-  ios-release:
-    name: iOS Release Build
-    instance_type: mac_mini_m1
+  android-release:
+    name: Android Release Build
+    instance_type: linux_x2
     environment:
-      ios_signing:
-        provisioning_profiles:
-          - name: batch_notice_app_provisioning
-        certificates:
-          - name: ios_distribution
+      android_signing:
+        - keystore_reference
       vars:
         FLUTTER_VERSION: "stable"
     cache:
@@ -25,31 +22,17 @@ workflows:
         script: |
           export PATH="$PATH:$HOME/development/flutter/bin"
           flutter pub get
-      - name: Install Pod dependencies
-        script: |
-          cd ios
-          pod install --repo-update
-          cd ..
-      - name: Build iOS Release
+      - name: Build APK Release
         script: |
           export PATH="$PATH:$HOME/development/flutter/bin"
-          flutter build ios --release
-      - name: Create IPA
+          flutter build apk --release
+      - name: Build AAB Release
         script: |
-          cd ios
-          xcodebuild -workspace Runner.xcworkspace \
-            -scheme Runner \
-            -configuration Release \
-            -derivedDataPath build/Release \
-            -archivePath build/Release/Runner.xcarchive \
-            archive
-          xcodebuild -exportArchive \
-            -archivePath build/Release/Runner.xcarchive \
-            -exportOptionsPlist exportOptions.plist \
-            -exportPath build/Release/ipa
+          export PATH="$PATH:$HOME/development/flutter/bin"
+          flutter build appbundle --release
     artifacts:
-      - build/ios/iphoneos/Runner.app
-      - build/Release/ipa/*.ipa
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
     publishing:
       email:
         recipients:
