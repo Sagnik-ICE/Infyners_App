@@ -6,10 +6,8 @@ workflows:
       ios_signing:
         provisioning_profiles:
           - name: batch_notice_app_provisioning
-            target_name: Runner
         certificates:
           - name: ios_distribution
-            profile_name: batch_notice_app_provisioning
       vars:
         FLUTTER_VERSION: "stable"
     cache:
