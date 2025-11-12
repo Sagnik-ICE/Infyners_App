@@ -10,7 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'firebase_options.dart';
@@ -20,14 +20,12 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> initializeNotifications() async {
-  // Timezone initialization for scheduled notifications if needed
+  // Initialize timezone data
   tz.initializeTimeZones();
-  try {
-    final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(currentTimeZone));
-  } catch (_) {
-    tz.setLocalLocation(tz.getLocation('UTC'));
-  }
+
+  // Remove FlutterNativeTimezone usage
+  // Set your local timezone manually or default to UTC
+  tz.setLocalLocation(tz.getLocation('UTC')); // <- just UTC or your preferred timezone
 
   const AndroidInitializationSettings androidInit =
       AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -38,7 +36,7 @@ Future<void> initializeNotifications() async {
 
   await flutterLocalNotificationsPlugin.initialize(initSettings);
 
-  // Request permissions only for iOS/macOS (Android handled on install/manifest)
+  // Request permissions for iOS/macOS
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
       ?.requestPermissions(alert: true, badge: true, sound: true);
@@ -47,6 +45,7 @@ Future<void> initializeNotifications() async {
       .resolvePlatformSpecificImplementation<MacOSFlutterLocalNotificationsPlugin>()
       ?.requestPermissions(alert: true, badge: true, sound: true);
 }
+
 
 Future<void> showNotification(String title, String body) async {
   const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(

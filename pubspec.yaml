@@ -15,7 +15,6 @@ dependencies:
   google_fonts: ^6.2.1
   fluttertoast: ^9.0.0
   flutter_local_notifications: ^19.5.0
-  flutter_native_timezone: ^2.0.0
   timezone: ^0.10.1
   iconsax: ^0.0.8
   font_awesome_flutter: ^10.7.0
