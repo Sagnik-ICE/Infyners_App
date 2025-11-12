@@ -1,0 +1,56 @@
+workflows:
+  ios-release:
+    name: iOS Release Build
+    instance_type: mac_mini_m1
+    environment:
+      ios_signing:
+        provisioning_profiles:
+          - name: batch_notice_app_provisioning
+        certificates:
+          - name: ios_distribution
+      vars:
+        FLUTTER_VERSION: "stable"
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+    scripts:
+      - name: Install Flutter
+        script: |
+          mkdir -p ~/development
+          cd ~/development
+          git clone https://github.com/flutter/flutter.git --branch stable
+          export PATH="$PATH:$HOME/development/flutter/bin"
+          flutter doctor
+      - name: Get Flutter dependencies
+        script: |
+          export PATH="$PATH:$HOME/development/flutter/bin"
+          flutter pub get
+      - name: Install Pod dependencies
+        script: |
+          cd ios
+          pod install --repo-update
+          cd ..
+      - name: Build iOS Release
+        script: |
+          export PATH="$PATH:$HOME/development/flutter/bin"
+          flutter build ios --release
+      - name: Create IPA
+        script: |
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -derivedDataPath build/Release \
+            -archivePath build/Release/Runner.xcarchive \
+            archive
+          xcodebuild -exportArchive \
+            -archivePath build/Release/Runner.xcarchive \
+            -exportOptionsPlist exportOptions.plist \
+            -exportPath build/Release/ipa
+    artifacts:
+      - build/ios/iphoneos/Runner.app
+      - build/Release/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - $BUILD_OWNER_EMAIL
