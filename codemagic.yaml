@@ -8,6 +8,7 @@ workflows:
           - name: batch_notice_app_provisioning
         certificates:
           - name: ios_distribution
+        target_name: Runner
       vars:
         FLUTTER_VERSION: "stable"
     cache:
