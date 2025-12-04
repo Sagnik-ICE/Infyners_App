@@ -912,12 +912,15 @@ class _LoginPageState extends State<LoginPage> {
       Fluttertoast.showToast(msg: "Login successful!");
       
       // Small delay to ensure Firebase updates auth state
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 800));
       
       if (mounted) {
         setState(() => _loading = false);
+        // Navigate to HomePage directly
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const HomePage()),
+        );
       }
-      // AuthGate will automatically detect the auth state change and navigate
     } on FirebaseAuthException catch (e) {
       if (mounted) setState(() => _loading = false);
       String message = 'Login failed';
@@ -1167,40 +1170,43 @@ class _LoginPageState extends State<LoginPage> {
 
                           const SizedBox(height: 16),
 
-                          // Sign Up Link
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don't have an account? ",
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.9),
-                                  fontSize: 13,
+                          // Sign Up Link - Increased tap area
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => const SignupPage(),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => const SignupPage(),
-                                    ),
-                                  );
-                                },
-                                child: ShaderMask(
-                                  shaderCallback: (bounds) => LinearGradient(
-                                    colors: [neonCyan, electricPurple],
-                                  ).createShader(bounds),
-                                  child: Text(
-                                    'Sign Up',
-                                    style: GoogleFonts.outfit(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13,
-                                      color: Colors.white,
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Don't have an account? ",
+                                    style: TextStyle(
+                                      color: Colors.white.withOpacity(0.9),
+                                      fontSize: 14,
                                     ),
                                   ),
-                                ),
+                                  ShaderMask(
+                                    shaderCallback: (bounds) => LinearGradient(
+                                      colors: [neonCyan, electricPurple],
+                                    ).createShader(bounds),
+                                    child: Text(
+                                      'Sign Up',
+                                      style: GoogleFonts.outfit(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
@@ -1663,35 +1669,37 @@ class _SignupPageState extends State<SignupPage> {
 
                             const SizedBox(height: 16),
 
-                            // Login Link
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Already have an account? ',
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.9),
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () => Navigator.of(context).pop(),
-                                  child: ShaderMask(
-                                    shaderCallback: (bounds) => LinearGradient(
-                                      colors: [neonCyan, electricPurple],
-                                    ).createShader(bounds),
-                                    child: Text(
-                                      'Login',
-                                      style: GoogleFonts.outfit(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13,
-                                        color: Colors.white,
-                                        decoration: TextDecoration.underline,
+                            // Login Link - Increased tap area
+                            GestureDetector(
+                              onTap: () => Navigator.of(context).pop(),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Already have an account? ',
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.9),
+                                        fontSize: 14,
                                       ),
                                     ),
-                                  ),
+                                    ShaderMask(
+                                      shaderCallback: (bounds) => LinearGradient(
+                                        colors: [neonCyan, electricPurple],
+                                      ).createShader(bounds),
+                                      child: Text(
+                                        'Login',
+                                        style: GoogleFonts.outfit(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
