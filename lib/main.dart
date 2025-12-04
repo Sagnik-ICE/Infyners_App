@@ -768,33 +768,28 @@ class _GetStartedPageState extends State<GetStartedPage>
           scale: Tween<double>(begin: 0.5, end: 1.0)
               .animate(_scaleAnimController),
           child: Container(
-            width: 140,
-            height: 140,
+            width: 120,
+            height: 120,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  color.withOpacity(0.5),
-                  color.withOpacity(0.15),
+                  color.withOpacity(0.3),
+                  color.withOpacity(0.08),
                 ],
               ),
-              border: Border.all(color: color.withOpacity(0.7), width: 3),
+              border: Border.all(color: color.withOpacity(0.5), width: 2.5),
               boxShadow: [
                 BoxShadow(
-                  color: color.withOpacity(0.8),
-                  blurRadius: 50,
-                  offset: const Offset(0, 20),
-                ),
-                BoxShadow(
                   color: color.withOpacity(0.4),
-                  blurRadius: 25,
-                  offset: const Offset(0, 10),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
               ],
             ),
-            child: Icon(icon, size: 80, color: color),
+            child: Icon(icon, size: 65, color: color),
           ),
         ),
         const SizedBox(height: 48),
@@ -820,20 +815,15 @@ class _GetStartedPageState extends State<GetStartedPage>
           subtitle,
           textAlign: TextAlign.center,
           style: GoogleFonts.outfit(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
             color: Colors.white,
-            letterSpacing: 1.5,
+            letterSpacing: 1,
             shadows: [
               Shadow(
-                color: color.withOpacity(0.9),
-                offset: const Offset(0, 4),
-                blurRadius: 15,
-              ),
-              Shadow(
-                color: Colors.black.withOpacity(0.7),
+                color: color.withOpacity(0.5),
                 offset: const Offset(0, 2),
-                blurRadius: 8,
+                blurRadius: 6,
               ),
             ],
           ),
@@ -918,11 +908,16 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
 
-      // Login successful - reset loading state and let AuthGate handle navigation
+      // Login successful
+      Fluttertoast.showToast(msg: "Login successful!");
+      
+      // Small delay to ensure Firebase updates auth state
+      await Future.delayed(const Duration(milliseconds: 500));
+      
       if (mounted) {
         setState(() => _loading = false);
       }
-      Fluttertoast.showToast(msg: "Login successful!");
+      // AuthGate will automatically detect the auth state change and navigate
     } on FirebaseAuthException catch (e) {
       if (mounted) setState(() => _loading = false);
       String message = 'Login failed';
