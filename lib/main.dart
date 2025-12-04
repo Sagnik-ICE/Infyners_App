@@ -309,6 +309,24 @@ class InfynersApp extends StatelessWidget {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
+      navigationBarTheme: NavigationBarThemeData(
+        labelTextStyle: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.selected)) {
+              return GoogleFonts.outfit(
+                color: const Color(0xFF00E5FF),
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              );
+            }
+            return GoogleFonts.outfit(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            );
+          },
+        ),
+      ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: const Color(0xFF2C2C2C),
@@ -765,8 +783,8 @@ class _GetStartedPageState extends State<GetStartedPage>
       children: [
         // Icon Container
         ScaleTransition(
-          scale: Tween<double>(begin: 0.5, end: 1.0)
-              .animate(_scaleAnimController),
+          scale:
+              Tween<double>(begin: 0.5, end: 1.0).animate(_scaleAnimController),
           child: Container(
             width: 120,
             height: 120,
@@ -910,10 +928,10 @@ class _LoginPageState extends State<LoginPage> {
 
       // Login successful
       Fluttertoast.showToast(msg: "Login successful!");
-      
+
       // Small delay to ensure Firebase updates auth state
       await Future.delayed(const Duration(milliseconds: 800));
-      
+
       if (mounted) {
         setState(() => _loading = false);
         // Navigate to HomePage directly
@@ -1135,8 +1153,8 @@ class _LoginPageState extends State<LoginPage> {
                                     : Icons.visibility_off,
                                 color: neonCyan,
                               ),
-                              onPressed: () => setState(() =>
-                                  _obscurePassword = !_obscurePassword),
+                              onPressed: () => setState(
+                                  () => _obscurePassword = !_obscurePassword),
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -1180,7 +1198,8 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             },
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 16),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -1484,8 +1503,7 @@ class _SignupPageState extends State<SignupPage> {
                               width: 1,
                             ),
                           ),
-                          child: const Icon(Icons.arrow_back,
-                              color: neonCyan),
+                          child: const Icon(Icons.arrow_back, color: neonCyan),
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -1522,7 +1540,8 @@ class _SignupPageState extends State<SignupPage> {
               Expanded(
                 child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width < 360 ? 16 : 24,
+                    horizontal:
+                        MediaQuery.of(context).size.width < 360 ? 16 : 24,
                   ),
                   child: Column(
                     children: [
@@ -1578,8 +1597,8 @@ class _SignupPageState extends State<SignupPage> {
                                       : Icons.visibility_off,
                                   color: neonCyan,
                                 ),
-                                onPressed: () => setState(() =>
-                                    _obscurePassword = !_obscurePassword),
+                                onPressed: () => setState(
+                                    () => _obscurePassword = !_obscurePassword),
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -1663,7 +1682,8 @@ class _SignupPageState extends State<SignupPage> {
                             // Create Account Button
                             _buildNeonSignupButton(
                               onPressed: _loading ? null : _signup,
-                              label: _loading ? "Creating..." : "Create Account",
+                              label:
+                                  _loading ? "Creating..." : "Create Account",
                               isLoading: _loading,
                             ),
 
@@ -1673,7 +1693,8 @@ class _SignupPageState extends State<SignupPage> {
                             GestureDetector(
                               onTap: () => Navigator.of(context).pop(),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 12, horizontal: 16),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -1685,7 +1706,8 @@ class _SignupPageState extends State<SignupPage> {
                                       ),
                                     ),
                                     ShaderMask(
-                                      shaderCallback: (bounds) => LinearGradient(
+                                      shaderCallback: (bounds) =>
+                                          LinearGradient(
                                         colors: [neonCyan, electricPurple],
                                       ).createShader(bounds),
                                       child: Text(
@@ -2002,38 +2024,63 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          child: NavigationBar(
-            backgroundColor: Colors.transparent,
-            selectedIndex: _index,
-            onDestinationSelected: (i) => setState(() => _index = i),
-            indicatorColor: neonCyan.withOpacity(0.2),
-            destinations: [
-              NavigationDestination(
-                icon: Icon(Icons.home, color: Colors.white.withOpacity(0.6)),
-                selectedIcon: Icon(Icons.home, color: neonCyan),
-                label: "Home",
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              navigationBarTheme: NavigationBarThemeData(
+                labelTextStyle: MaterialStateProperty.resolveWith(
+                  (states) {
+                    if (states.contains(MaterialState.selected)) {
+                      return GoogleFonts.outfit(
+                        color: neonCyan,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      );
+                    }
+                    return GoogleFonts.outfit(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    );
+                  },
+                ),
               ),
-              NavigationDestination(
-                icon: Icon(Icons.announcement, color: Colors.white.withOpacity(0.6)),
-                selectedIcon: Icon(Icons.announcement, color: neonCyan),
-                label: "Notices",
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.assignment, color: Colors.white.withOpacity(0.6)),
-                selectedIcon: Icon(Icons.assignment, color: neonCyan),
-                label: "Events",
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.schedule, color: Colors.white.withOpacity(0.6)),
-                selectedIcon: Icon(Icons.schedule, color: neonCyan),
-                label: "Routine",
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.person, color: Colors.white.withOpacity(0.6)),
-                selectedIcon: Icon(Icons.person, color: neonCyan),
-                label: "Profile",
-              ),
-            ],
+            ),
+            child: NavigationBar(
+              backgroundColor: Colors.transparent,
+              selectedIndex: _index,
+              onDestinationSelected: (i) => setState(() => _index = i),
+              indicatorColor: neonCyan.withOpacity(0.2),
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+              destinations: [
+                NavigationDestination(
+                  icon: Icon(Icons.home, color: Colors.white),
+                  selectedIcon: Icon(Icons.home, color: neonCyan, size: 28),
+                  label: "Home",
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.announcement, color: Colors.white),
+                  selectedIcon:
+                      Icon(Icons.announcement, color: neonCyan, size: 28),
+                  label: "Notices",
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.assignment, color: Colors.white),
+                  selectedIcon:
+                      Icon(Icons.assignment, color: neonCyan, size: 28),
+                  label: "Events",
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.schedule, color: Colors.white),
+                  selectedIcon: Icon(Icons.schedule, color: neonCyan, size: 28),
+                  label: "Routine",
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.person, color: Colors.white),
+                  selectedIcon: Icon(Icons.person, color: neonCyan, size: 28),
+                  label: "Profile",
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -2068,7 +2115,8 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
-          if (isAdmin && _index != 4) // Don't show admin buttons on Profile page
+          if (isAdmin &&
+              _index != 4) // Don't show admin buttons on Profile page
             IconButton(
               icon: Icon(Icons.analytics, color: electricPurple),
               tooltip: 'Analytics',
@@ -2115,38 +2163,62 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        child: NavigationBar(
-          backgroundColor: Colors.transparent,
-          selectedIndex: _index,
-          onDestinationSelected: (i) => setState(() => _index = i),
-          indicatorColor: neonCyan.withOpacity(0.2),
-          destinations: [
-            NavigationDestination(
-              icon: Icon(Icons.home, color: Colors.white.withOpacity(0.6)),
-              selectedIcon: Icon(Icons.home, color: neonCyan),
-              label: "Home",
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            navigationBarTheme: NavigationBarThemeData(
+              labelTextStyle: MaterialStateProperty.resolveWith(
+                (states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return GoogleFonts.outfit(
+                      color: neonCyan,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    );
+                  }
+                  return GoogleFonts.outfit(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  );
+                },
+              ),
             ),
-            NavigationDestination(
-              icon: Icon(Icons.announcement, color: Colors.white.withOpacity(0.6)),
-              selectedIcon: Icon(Icons.announcement, color: neonCyan),
-              label: "Notices",
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.assignment, color: Colors.white.withOpacity(0.6)),
-              selectedIcon: Icon(Icons.assignment, color: neonCyan),
-              label: "Events",
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.schedule, color: Colors.white.withOpacity(0.6)),
-              selectedIcon: Icon(Icons.schedule, color: neonCyan),
-              label: "Routine",
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.person, color: Colors.white.withOpacity(0.6)),
-              selectedIcon: Icon(Icons.person, color: neonCyan),
-              label: "Profile",
-            ),
-          ],
+          ),
+          child: NavigationBar(
+            backgroundColor: Colors.transparent,
+            selectedIndex: _index,
+            onDestinationSelected: (i) => setState(() => _index = i),
+            indicatorColor: neonCyan.withOpacity(0.2),
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+            destinations: [
+              NavigationDestination(
+                icon: Icon(Icons.home, color: Colors.white),
+                selectedIcon: Icon(Icons.home, color: neonCyan, size: 28),
+                label: "Home",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.announcement, color: Colors.white),
+                selectedIcon:
+                    Icon(Icons.announcement, color: neonCyan, size: 28),
+                label: "Notices",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.assignment, color: Colors.white),
+                selectedIcon: Icon(Icons.assignment, color: neonCyan, size: 28),
+                label: "Events",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.schedule, color: Colors.white),
+                selectedIcon: Icon(Icons.schedule, color: neonCyan, size: 28),
+                label: "Routine",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.person, color: Colors.white),
+                selectedIcon: Icon(Icons.person, color: neonCyan, size: 28),
+                label: "Profile",
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -2264,100 +2336,109 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-          // Stats Cards
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('notices')
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          final count = snapshot.data?.docs.length ?? 0;
-                          return _buildStatCard(
-                            context,
-                            Icons.announcement,
-                            count.toString(),
-                            'Notices',
-                            Colors.blue,
-                          );
-                        },
+            // Stats Cards
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('notices')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            final count = snapshot.data?.docs.length ?? 0;
+                            return _buildStatCard(
+                              context,
+                              Icons.announcement,
+                              count.toString(),
+                              'Notices',
+                              Colors.blue,
+                            );
+                          },
+                        ),
                       ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('exams')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            final count = snapshot.data?.docs.length ?? 0;
+                            return _buildStatCard(
+                              context,
+                              Icons.event,
+                              count.toString(),
+                              'Events',
+                              Colors.orange,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (isAdmin) ...[
+                    const SizedBox(height: 16),
+                    StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        final count = snapshot.data?.docs.length ?? 0;
+                        return _buildStatCard(
+                          context,
+                          Icons.people,
+                          count.toString(),
+                          'Members',
+                          Colors.green,
+                        );
+                      },
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('exams')
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          final count = snapshot.data?.docs.length ?? 0;
-                          return _buildStatCard(
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildActionCard(
                             context,
-                            Icons.event,
-                            count.toString(),
-                            'Events',
-                            Colors.orange,
-                          );
-                        },
-                      ),
+                            Icons.analytics,
+                            'Analytics',
+                            Colors.purple,
+                            () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (_) => const AnalyticsPage()),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildActionCard(
+                            context,
+                            Icons.people,
+                            'Manage Members',
+                            Colors.teal,
+                            () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (_) => const MembersPage()),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-                if (isAdmin) ...[
-                  const SizedBox(height: 16),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('users')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      final count = snapshot.data?.docs.length ?? 0;
-                      return _buildStatCard(
-                        context,
-                        Icons.people,
-                        count.toString(),
-                        'Members',
-                        Colors.green,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  _buildActionCard(
-                    context,
-                    Icons.analytics,
-                    'Analytics',
-                    Colors.purple,
-                    () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (_) => const AnalyticsPage()),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  _buildActionCard(
-                    context,
-                    Icons.people,
-                    'Manage Members',
-                    Colors.teal,
-                    () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const MembersPage()),
-                      );
-                    },
-                  ),
                 ],
-              ],
+              ),
             ),
-          ),
 
-          const SizedBox(height: 24),
-        ],
-      ),
+            const SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }
@@ -2592,16 +2673,32 @@ class _NoticePageState extends State<NoticePage> {
         padding: const EdgeInsets.all(12),
         child: TextField(
           controller: search,
+          style: TextStyle(
+              color: Colors.grey.shade900,
+              fontSize: 16,
+              fontWeight: FontWeight.w500),
           decoration: InputDecoration(
             labelText: 'Search notices',
-            prefixIcon: const Icon(Icons.search),
+            labelStyle: TextStyle(
+              color: Colors.grey.shade700,
+              fontSize: 14,
+            ),
+            prefixIcon: Icon(Icons.search, color: neonCyan),
             suffixIcon: _searchQuery.isNotEmpty
                 ? IconButton(
-                    icon: const Icon(Icons.clear),
+                    icon: Icon(Icons.clear, color: Colors.white),
                     onPressed: () => search.clear(),
                   )
                 : null,
-            border: const OutlineInputBorder(),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: neonCyan, width: 2),
+            ),
           ),
         ),
       ),
@@ -2613,20 +2710,56 @@ class _NoticePageState extends State<NoticePage> {
               controller: notice,
               maxLines: 5,
               textInputAction: TextInputAction.newline,
-              decoration: const InputDecoration(
+              style: TextStyle(
+                  color: Colors.grey.shade900,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500),
+              decoration: InputDecoration(
                 labelText: 'Write Notice',
+                labelStyle: TextStyle(
+                  color: Colors.grey.shade700,
+                  fontSize: 14,
+                ),
                 alignLabelWithHint: true,
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: neonCyan, width: 2),
+                ),
               ),
             ),
             const SizedBox(height: 8),
             TextField(
               controller: attachmentUrl,
-              decoration: const InputDecoration(
+              style: TextStyle(
+                  color: Colors.grey.shade900,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500),
+              decoration: InputDecoration(
                 labelText: 'Attachment URL (optional)',
+                labelStyle: TextStyle(
+                  color: Colors.grey.shade700,
+                  fontSize: 14,
+                ),
                 hintText: 'Paste Google Drive, Dropbox, etc. link',
-                prefixIcon: Icon(Icons.link),
-                border: OutlineInputBorder(),
+                hintStyle: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 14,
+                ),
+                prefixIcon: Icon(Icons.link, color: neonCyan),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: neonCyan, width: 2),
+                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -2637,9 +2770,15 @@ class _NoticePageState extends State<NoticePage> {
                     children: [
                       Checkbox(
                         value: _isPoll,
+                        activeColor: neonCyan,
+                        checkColor: darkBg,
                         onChanged: (v) => setState(() => _isPoll = v ?? false),
                       ),
-                      const Text('Create as Poll'),
+                      Text('Create as Poll',
+                          style: GoogleFonts.outfit(
+                            color: Colors.white,
+                            fontSize: 14,
+                          )),
                     ],
                   ),
                 ),
@@ -2648,10 +2787,16 @@ class _NoticePageState extends State<NoticePage> {
                     children: [
                       Checkbox(
                         value: _isPinned,
+                        activeColor: neonCyan,
+                        checkColor: darkBg,
                         onChanged: (v) =>
                             setState(() => _isPinned = v ?? false),
                       ),
-                      const Text('Pin to top'),
+                      Text('Pin to top',
+                          style: GoogleFonts.outfit(
+                            color: Colors.white,
+                            fontSize: 14,
+                          )),
                     ],
                   ),
                 ),
@@ -2659,8 +2804,12 @@ class _NoticePageState extends State<NoticePage> {
             ),
             if (_isPoll) ...[
               const SizedBox(height: 8),
-              const Text('Poll Options:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('Poll Options:',
+                  style: GoogleFonts.outfit(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 16,
+                  )),
               const SizedBox(height: 4),
               ..._pollOptions.asMap().entries.map((entry) {
                 final idx = entry.key;
@@ -2672,9 +2821,24 @@ class _NoticePageState extends State<NoticePage> {
                       Expanded(
                         child: TextField(
                           controller: ctrl,
+                          style: TextStyle(color: Colors.white, fontSize: 16),
                           decoration: InputDecoration(
                             labelText: 'Option ${idx + 1}',
-                            border: const OutlineInputBorder(),
+                            labelStyle: TextStyle(
+                              color: Colors.white.withOpacity(0.9),
+                              fontSize: 14,
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: neonCyan.withOpacity(0.3)),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: neonCyan.withOpacity(0.3)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: neonCyan, width: 2),
+                            ),
                             isDense: true,
                           ),
                         ),
@@ -2695,8 +2859,12 @@ class _NoticePageState extends State<NoticePage> {
                 );
               }),
               TextButton.icon(
-                icon: const Icon(Icons.add),
-                label: const Text('Add Option'),
+                icon: Icon(Icons.add, color: neonCyan),
+                label: Text('Add Option',
+                    style: GoogleFonts.outfit(
+                      color: neonCyan,
+                      fontWeight: FontWeight.bold,
+                    )),
                 onPressed: () {
                   if (_pollOptions.length < 6) {
                     setState(() => _pollOptions.add(TextEditingController()));
@@ -2730,7 +2898,12 @@ class _NoticePageState extends State<NoticePage> {
               return const Center(child: CircularProgressIndicator());
             final docs = snap.data!.docs;
             if (docs.isEmpty)
-              return const Center(child: Text('No notices yet'));
+              return Center(
+                  child: Text('No notices yet',
+                      style: GoogleFonts.outfit(
+                        fontSize: 18,
+                        color: Colors.white.withOpacity(0.7),
+                      )));
 
             // Filter by search query
             final filtered = _searchQuery.isEmpty
@@ -2757,9 +2930,14 @@ class _NoticePageState extends State<NoticePage> {
 
             if (filtered.isEmpty) {
               return Center(
-                  child: Text(_searchQuery.isEmpty
-                      ? 'No notices yet'
-                      : 'No notices match "$_searchQuery"'));
+                  child: Text(
+                      _searchQuery.isEmpty
+                          ? 'No notices yet'
+                          : 'No notices match "$_searchQuery"',
+                      style: GoogleFonts.outfit(
+                        fontSize: 18,
+                        color: Colors.white.withOpacity(0.7),
+                      )));
             }
 
             return ListView.builder(
@@ -3075,11 +3253,12 @@ class _NoticeCardState extends State<NoticeCard> {
                       Expanded(
                         child: Text(
                           widget.text,
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
+                          style: GoogleFonts.outfit(
+                            fontSize: 15,
                             height: 1.5,
+                            color: Colors.white,
                             fontWeight: widget.isPinned
-                                ? FontWeight.w500
+                                ? FontWeight.w600
                                 : FontWeight.normal,
                           ),
                         ),
@@ -3151,9 +3330,10 @@ class _NoticeCardState extends State<NoticeCard> {
                               child: Text(
                                 widget.attachmentUrl!,
                                 style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: neonCyan,
                                   decoration: TextDecoration.underline,
                                   fontSize: 12,
+                                  fontWeight: FontWeight.w500,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
@@ -3565,6 +3745,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final _mobileCtrl = TextEditingController();
   bool _loading = true;
   bool _saving = false;
+  bool _isEditing = false;
   String? _profilePicUrl;
   bool _uploadingPhoto = false;
 
@@ -3572,12 +3753,6 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     _loadProfile();
-  }
-
-  Uint8List _base64ToImage(String base64String) {
-    // Remove data:image prefix if present
-    final base64Data = base64String.split(',').last;
-    return base64Decode(base64Data);
   }
 
   Future<void> _loadProfile() async {
@@ -3600,6 +3775,12 @@ class _ProfilePageState extends State<ProfilePage> {
     } finally {
       if (mounted) setState(() => _loading = false);
     }
+  }
+
+  Uint8List _base64ToImage(String base64String) {
+    // Remove data:image prefix if present
+    final base64Data = base64String.split(',').last;
+    return base64Decode(base64Data);
   }
 
   Future<void> _pickAndUploadPhoto() async {
@@ -3688,6 +3869,7 @@ class _ProfilePageState extends State<ProfilePage> {
       }, SetOptions(merge: true));
 
       Fluttertoast.showToast(msg: 'Profile saved');
+      if (mounted) setState(() => _isEditing = false);
     } catch (e) {
       Fluttertoast.showToast(msg: 'Failed to save profile: $e');
     } finally {
@@ -3708,274 +3890,358 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkBg,
       appBar: AppBar(
-        title: const Text('My Profile'),
+        backgroundColor: darkBg,
+        elevation: 0,
+        title: const SizedBox.shrink(),
         actions: [
-          if (!_loading)
-            IconButton(
-              icon: _saving
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.save),
-              onPressed: _saving ? null : _saveProfile,
-              tooltip: 'Save Profile',
-            ),
+          IconButton(
+            icon: const Icon(Icons.settings, color: neonCyan),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsPage()),
+              );
+            },
+            tooltip: 'Settings',
+          ),
         ],
       ),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  // Profile Header with Gradient
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Theme.of(context).colorScheme.primary,
-                          Theme.of(context).colorScheme.secondary,
+          ? Center(child: CircularProgressIndicator(color: neonCyan))
+          : Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    darkBg,
+                    const Color(0xFF1A1F3A),
+                    electricPurple.withOpacity(0.1),
+                  ],
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Profile Picture Section
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.symmetric(vertical: 32),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            neonCyan.withOpacity(0.1),
+                            electricPurple.withOpacity(0.1),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: neonCyan.withOpacity(0.3),
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: neonCyan.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
                         ],
                       ),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 32),
-                    child: Column(
-                      children: [
-                        Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: Colors.white, width: 4),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: CircleAvatar(
-                                radius: 60,
-                                backgroundColor: Colors.white,
-                                backgroundImage: _profilePicUrl != null &&
-                                        _profilePicUrl!.startsWith('data:image')
-                                    ? MemoryImage(
-                                            _base64ToImage(_profilePicUrl!))
-                                        as ImageProvider
-                                    : (_profilePicUrl != null
-                                        ? NetworkImage(_profilePicUrl!)
-                                            as ImageProvider
-                                        : null),
-                                child: _profilePicUrl == null
-                                    ? Text(
-                                        _nameCtrl.text.isNotEmpty
-                                            ? _nameCtrl.text[0].toUpperCase()
-                                            : '?',
-                                        style: TextStyle(
-                                          fontSize: 48,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    : null,
-                              ),
-                            ),
-                            if (_uploadingPhoto)
-                              Positioned.fill(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.black.withOpacity(0.5),
-                                  ),
-                                  child: const Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: Container(
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Theme.of(context).colorScheme.primary,
-                                  border:
-                                      Border.all(color: Colors.white, width: 2),
+                                  border: Border.all(
+                                    color: neonCyan.withOpacity(0.6),
+                                    width: 4,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: neonCyan.withOpacity(0.4),
+                                      blurRadius: 20,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ],
                                 ),
-                                child: IconButton(
-                                  icon: const Icon(Icons.camera_alt,
-                                      color: Colors.white),
-                                  onPressed: _uploadingPhoto
-                                      ? null
-                                      : _pickAndUploadPhoto,
-                                  tooltip: 'Change Photo',
+                                child: CircleAvatar(
+                                  radius: 60,
+                                  backgroundColor: darkCard,
+                                  backgroundImage: _profilePicUrl != null &&
+                                          _profilePicUrl!
+                                              .startsWith('data:image')
+                                      ? MemoryImage(
+                                              _base64ToImage(_profilePicUrl!))
+                                          as ImageProvider
+                                      : (_profilePicUrl != null
+                                          ? NetworkImage(_profilePicUrl!)
+                                              as ImageProvider
+                                          : null),
+                                  child: _profilePicUrl == null
+                                      ? Text(
+                                          _nameCtrl.text.isNotEmpty
+                                              ? _nameCtrl.text[0].toUpperCase()
+                                              : '?',
+                                          style: TextStyle(
+                                            fontSize: 48,
+                                            color: neonCyan,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      : null,
                                 ),
                               ),
-                            ),
-                            if (_profilePicUrl != null)
+                              if (_uploadingPhoto)
+                                Positioned.fill(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.black.withOpacity(0.5),
+                                    ),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: neonCyan,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               Positioned(
                                 bottom: 0,
-                                left: 0,
+                                right: 0,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.red,
-                                    border: Border.all(
-                                        color: Colors.white, width: 2),
+                                    gradient: LinearGradient(
+                                      colors: [neonCyan, electricPurple],
+                                    ),
+                                    border: Border.all(color: darkBg, width: 3),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: neonCyan.withOpacity(0.5),
+                                        blurRadius: 10,
+                                      ),
+                                    ],
                                   ),
                                   child: IconButton(
-                                    icon: const Icon(Icons.delete,
+                                    icon: const Icon(Icons.camera_alt,
                                         color: Colors.white),
                                     onPressed: _uploadingPhoto
                                         ? null
-                                        : _removeProfilePicture,
-                                    tooltip: 'Remove Photo',
+                                        : _pickAndUploadPhoto,
+                                    tooltip: 'Change Photo',
                                   ),
                                 ),
                               ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          _nameCtrl.text.isNotEmpty
-                              ? _nameCtrl.text
-                              : 'Your Name',
-                          style: GoogleFonts.poppins(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          FirebaseAuth.instance.currentUser?.email ?? '',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Colors.white.withOpacity(0.9),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // Profile Form
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Personal Information',
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _nameCtrl,
-                          decoration: InputDecoration(
-                            labelText: 'Full Name *',
-                            prefixIcon: const Icon(Icons.person),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          onChanged: (_) => setState(() {}), // Update header
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _regIdCtrl,
-                          decoration: InputDecoration(
-                            labelText: 'Registration ID',
-                            hintText: 'e.g., 242-50-000',
-                            prefixIcon: const Icon(Icons.badge),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _deptCtrl,
-                          decoration: InputDecoration(
-                            labelText: 'Department',
-                            hintText:
-                                'e.g., Information and Communication Engineering',
-                            prefixIcon: const Icon(Icons.school),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _bloodGroupCtrl,
-                          decoration: InputDecoration(
-                            labelText: 'Blood Group',
-                            hintText: 'e.g., O+, A-, B+',
-                            prefixIcon: const Icon(Icons.bloodtype),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _mobileCtrl,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            labelText: 'Mobile Number',
-                            hintText: 'e.g., +8801XXXXXXXXX',
-                            prefixIcon: const Icon(Icons.phone),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: ElevatedButton(
-                            onPressed: _saving ? null : _saveProfile,
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            child: _saving
-                                ? const SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                        strokeWidth: 2),
-                                  )
-                                : Text(
-                                    'Save Profile',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
+                              if (_profilePicUrl != null)
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: accentPink,
+                                      border:
+                                          Border.all(color: darkBg, width: 3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: accentPink.withOpacity(0.5),
+                                          blurRadius: 10,
+                                        ),
+                                      ],
+                                    ),
+                                    child: IconButton(
+                                      icon: const Icon(Icons.delete,
+                                          color: Colors.white),
+                                      onPressed: _uploadingPhoto
+                                          ? null
+                                          : _removeProfilePicture,
+                                      tooltip: 'Remove Photo',
                                     ),
                                   ),
+                                ),
+                            ],
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 12),
+                          Text(
+                            FirebaseAuth.instance.currentUser?.email ?? '',
+                            style: GoogleFonts.outfit(
+                              fontSize: 14,
+                              color: Colors.white.withOpacity(0.7),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+
+                    // Profile Form with Glassmorphism
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Personal Information',
+                                style: GoogleFonts.outfit(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              if (!_loading)
+                                IconButton(
+                                  icon: _saving
+                                      ? SizedBox(
+                                          width: 20,
+                                          height: 20,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            valueColor: AlwaysStoppedAnimation(
+                                                neonCyan),
+                                          ),
+                                        )
+                                      : Icon(
+                                          _isEditing ? Icons.save : Icons.edit,
+                                          color: neonCyan,
+                                          size: 24),
+                                  onPressed: _saving
+                                      ? null
+                                      : () {
+                                          if (_isEditing) {
+                                            _saveProfile();
+                                          } else {
+                                            setState(() => _isEditing = true);
+                                          }
+                                        },
+                                  tooltip: _isEditing
+                                      ? 'Save Profile'
+                                      : 'Edit Profile',
+                                ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          _buildGlassTextField(
+                            controller: _nameCtrl,
+                            label: 'Full Name *',
+                            icon: Icons.person,
+                            enabled: _isEditing,
+                            onChanged: (_) => setState(() {}),
+                          ),
+                          const SizedBox(height: 16),
+                          _buildGlassTextField(
+                            controller: _regIdCtrl,
+                            label: 'Registration ID',
+                            hint: 'e.g., 242-50-000',
+                            icon: Icons.badge,
+                            enabled: _isEditing,
+                          ),
+                          const SizedBox(height: 16),
+                          _buildGlassTextField(
+                            controller: _deptCtrl,
+                            label: 'Department',
+                            hint: 'e.g., ICE',
+                            icon: Icons.school,
+                            enabled: _isEditing,
+                          ),
+                          const SizedBox(height: 16),
+                          _buildGlassTextField(
+                            controller: _bloodGroupCtrl,
+                            label: 'Blood Group',
+                            hint: 'e.g., O+, A-, B+',
+                            icon: Icons.bloodtype,
+                            enabled: _isEditing,
+                          ),
+                          const SizedBox(height: 16),
+                          _buildGlassTextField(
+                            controller: _mobileCtrl,
+                            label: 'Mobile Number',
+                            hint: 'e.g., +8801XXXXXXXXX',
+                            icon: Icons.phone,
+                            keyboardType: TextInputType.phone,
+                            enabled: _isEditing,
+                          ),
+                          if (!_isEditing) const SizedBox(height: 16),
+                          if (!_isEditing)
+                            Center(
+                              child: Text(
+                                'Tap the edit icon to modify your profile',
+                                style: GoogleFonts.outfit(
+                                  color: Colors.white.withOpacity(0.5),
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
+    );
+  }
+
+  Widget _buildGlassTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    String? hint,
+    TextInputType? keyboardType,
+    Function(String)? onChanged,
+    bool enabled = true,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(enabled ? 0.08 : 0.02),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: neonCyan.withOpacity(enabled ? 0.3 : 0.15),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: neonCyan.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: TextField(
+        controller: controller,
+        enabled: enabled,
+        keyboardType: keyboardType,
+        onChanged: onChanged,
+        style: GoogleFonts.outfit(
+          color: Colors.grey.shade900,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: GoogleFonts.outfit(
+            color: Colors.grey.shade700,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          hintText: hint,
+          hintStyle: GoogleFonts.outfit(
+            color: Colors.grey.shade600,
+            fontSize: 14,
+          ),
+          prefixIcon: Icon(icon, color: neonCyan, size: 20),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.all(16),
+        ),
+      ),
     );
   }
 }
@@ -4076,280 +4342,399 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     return Scaffold(
+      backgroundColor: darkBg,
       appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        backgroundColor: darkBg,
+        elevation: 0,
+        title: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [neonCyan, electricPurple],
+          ).createShader(bounds),
+          child: Text(
+            'Settings',
+            style: GoogleFonts.outfit(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        children: [
-          // Appearance Section
-          _buildSectionHeader(context, 'Appearance', Icons.palette),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            child: Column(
-              children: [
-                SwitchListTile(
-                  secondary: Icon(
-                    _darkMode ? Icons.dark_mode : Icons.light_mode,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  title: const Text('Dark Mode'),
-                  subtitle: Text(_darkMode ? 'Enabled' : 'Disabled'),
-                  value: _darkMode,
-                  onChanged: (v) async {
-                    setState(() => _darkMode = v);
-                    await _saveSettings();
-                    themeController
-                        .setMode(v ? ThemeMode.dark : ThemeMode.light);
-                  },
-                ),
-              ],
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              darkBg,
+              const Color(0xFF1A1F3A),
+              electricPurple.withOpacity(0.1),
+            ],
           ),
-
-          const SizedBox(height: 16),
-
-          // Notifications Section
-          _buildSectionHeader(context, 'Notifications', Icons.notifications),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            child: Column(
-              children: [
-                SwitchListTile(
-                  secondary: Icon(
-                    Icons.announcement,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  title: const Text('Notice Notifications'),
-                  subtitle: const Text('Get alerts for new notices'),
-                  value: _notifyNotices,
-                  onChanged: (v) async {
-                    setState(() => _notifyNotices = v);
-                    await _saveSettings();
-                  },
-                ),
-                const Divider(height: 1, indent: 72),
-                SwitchListTile(
-                  secondary: Icon(
-                    Icons.event,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  title: const Text('Event Notifications'),
-                  subtitle: const Text('Get alerts for events and exams'),
-                  value: _notifyEvents,
-                  onChanged: (v) async {
-                    setState(() => _notifyEvents = v);
-                    await _saveSettings();
-                  },
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          // Account & Security Section
-          _buildSectionHeader(context, 'Account & Security', Icons.security),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            child: Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.lock,
-                      color: Theme.of(context).colorScheme.primary),
-                  title: const Text('Change Password'),
-                  subtitle: const Text('Update your account password'),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (_) => const ChangePasswordPage()),
-                    );
-                  },
-                ),
-                const Divider(height: 1, indent: 72),
-                ListTile(
-                  leading: Icon(Icons.email,
-                      color: Theme.of(context).colorScheme.primary),
-                  title: const Text('Email'),
-                  subtitle: Text(FirebaseAuth.instance.currentUser?.email ??
-                      'Not available'),
-                  trailing: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.green.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+        ),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          children: [
+            // Appearance Section
+            _buildSectionHeader(context, 'Appearance', Icons.palette),
+            Card(
+              color: darkCard,
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              child: Column(
+                children: [
+                  SwitchListTile(
+                    secondary: Icon(
+                      _darkMode ? Icons.dark_mode : Icons.light_mode,
+                      color: neonCyan,
                     ),
-                    child: const Text(
-                      'Verified',
-                      style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    title: Text('Dark Mode',
+                        style: GoogleFonts.outfit(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    subtitle: Text(_darkMode ? 'Enabled' : 'Disabled',
+                        style: GoogleFonts.outfit(
+                            color: Colors.white.withOpacity(0.7))),
+                    value: _darkMode,
+                    onChanged: (v) async {
+                      setState(() => _darkMode = v);
+                      await _saveSettings();
+                      themeController
+                          .setMode(v ? ThemeMode.dark : ThemeMode.light);
+                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
-          const SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-          // About Section
-          _buildSectionHeader(context, 'About', Icons.info),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            child: Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.info_outline,
-                      color: Theme.of(context).colorScheme.primary),
-                  title: const Text('About INFYNERS'),
-                  subtitle: const Text('App information and developer details'),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const AboutUsPage()),
-                    );
-                  },
-                ),
-                const Divider(height: 1, indent: 72),
-                ListTile(
-                  leading: Icon(Icons.policy,
-                      color: Theme.of(context).colorScheme.primary),
-                  title: const Text('Privacy Policy'),
-                  subtitle: const Text('How we handle your data'),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Privacy Policy'),
-                        content: const SingleChildScrollView(
-                          child: Text(
-                            'INFYNERS respects your privacy. We collect and store only the information necessary to provide you with our services.\n\n'
-                            'Data Collection:\n'
-                            '• Email and profile information\n'
-                            '• Notices and event data\n'
-                            '• User preferences\n\n'
-                            'Data Usage:\n'
-                            '• All data is stored securely in Firebase\n'
-                            '• We do not share your information with third parties\n'
-                            '• Your data is used only for app functionality\n\n'
-                            'Your Rights:\n'
-                            '• You can update your profile anytime\n'
-                            '• You can request data deletion by contacting admin',
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('Close'),
-                          ),
-                        ],
+            // Notifications Section
+            _buildSectionHeader(context, 'Notifications', Icons.notifications),
+            Card(
+              color: darkCard,
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              child: Column(
+                children: [
+                  SwitchListTile(
+                    secondary: Icon(
+                      Icons.announcement,
+                      color: neonCyan,
+                    ),
+                    title: Text('Notices',
+                        style: GoogleFonts.outfit(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    subtitle: Text(_notifyNotices ? 'Enabled' : 'Disabled',
+                        style: GoogleFonts.outfit(
+                            color: Colors.white.withOpacity(0.7))),
+                    value: _notifyNotices,
+                    onChanged: (v) async {
+                      setState(() => _notifyNotices = v);
+                      await _saveSettings();
+                    },
+                  ),
+                  Divider(
+                    color: Colors.white.withOpacity(0.1),
+                    height: 1,
+                  ),
+                  SwitchListTile(
+                    secondary: Icon(
+                      Icons.event,
+                      color: neonCyan,
+                    ),
+                    title: Text('Events',
+                        style: GoogleFonts.outfit(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    subtitle: Text(_notifyEvents ? 'Enabled' : 'Disabled',
+                        style: GoogleFonts.outfit(
+                            color: Colors.white.withOpacity(0.7))),
+                    value: _notifyEvents,
+                    onChanged: (v) async {
+                      setState(() => _notifyEvents = v);
+                      await _saveSettings();
+                    },
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Account & Security Section
+            _buildSectionHeader(context, 'Account & Security', Icons.security),
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.lock,
+                        color: Theme.of(context).colorScheme.primary),
+                    title: const Text('Change Password'),
+                    subtitle: const Text('Update your account password'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (_) => const ChangePasswordPage()),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1, indent: 72),
+                  ListTile(
+                    leading: Icon(Icons.email,
+                        color: Theme.of(context).colorScheme.primary),
+                    title: const Text('Email'),
+                    subtitle: Text(FirebaseAuth.instance.currentUser?.email ??
+                        'Not available'),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                    );
-                  },
-                ),
-                const Divider(height: 1, indent: 72),
-                ListTile(
-                  leading: Icon(Icons.article,
-                      color: Theme.of(context).colorScheme.primary),
-                  title: const Text('Terms of Service'),
-                  subtitle: const Text('Terms and conditions'),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Terms of Service'),
-                        content: const SingleChildScrollView(
-                          child: Text(
-                            'By using INFYNERS, you agree to the following terms:\n\n'
-                            '1. User Conduct:\n'
-                            '• Be respectful to other members\n'
-                            '• Do not post inappropriate content\n'
-                            '• Follow academic integrity guidelines\n\n'
-                            '2. Account Responsibility:\n'
-                            '• Keep your password secure\n'
-                            '• Do not share your account\n'
-                            '• Report any security issues\n\n'
-                            '3. Content Guidelines:\n'
-                            '• Posted content should be relevant\n'
-                            '• Do not spread misinformation\n'
-                            '• Respect intellectual property\n\n'
-                            '4. Service Availability:\n'
-                            '• We strive for 24/7 availability\n'
-                            '• Maintenance may cause downtime\n'
-                            '• Features may be updated',
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('Close'),
-                          ),
-                        ],
+                      child: const Text(
+                        'Verified',
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
                       ),
-                    );
-                  },
-                ),
-                const Divider(height: 1, indent: 72),
-                ListTile(
-                  leading: const Icon(Icons.badge, color: Colors.grey),
-                  title: const Text('App Version'),
-                  subtitle: const Text('1.0.0+1'),
-                  trailing: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Text(
-                      'Latest',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
-          const SizedBox(height: 24),
+            const SizedBox(height: 16),
 
-          // Footer
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                Text(
-                  'INFYNERS',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
+            // About Section
+            _buildSectionHeader(context, 'About', Icons.info),
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.info_outline, color: neonCyan),
+                    title: Text(
+                      'About INFYNERS',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'App information and developer details',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white.withOpacity(0.7),
+                      ),
+                    ),
+                    trailing: Icon(Icons.chevron_right, color: neonCyan),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const AboutUsPage()),
+                      );
+                    },
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Batch Notice & Updates Platform',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey.shade600,
+                  Divider(
+                      height: 1,
+                      indent: 72,
+                      color: Colors.white.withOpacity(0.1)),
+                  ListTile(
+                    leading: Icon(Icons.policy, color: neonCyan),
+                    title: Text(
+                      'Privacy Policy',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'How we handle your data',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white.withOpacity(0.7),
+                      ),
+                    ),
+                    trailing: Icon(Icons.chevron_right, color: neonCyan),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          backgroundColor: darkCard,
+                          title: Text(
+                            'Privacy Policy',
+                            style: GoogleFonts.outfit(
+                              color: neonCyan,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          content: SingleChildScrollView(
+                            child: Text(
+                              'INFYNERS respects your privacy. We collect and store only the information necessary to provide you with our services.\n\n'
+                              'Data Collection:\n'
+                              '• Email and profile information\n'
+                              '• Notices and event data\n'
+                              '• User preferences\n\n'
+                              'Data Usage:\n'
+                              '• All data is stored securely in Firebase\n'
+                              '• We do not share your information with third parties\n'
+                              '• Your data is used only for app functionality\n\n'
+                              'Your Rights:\n'
+                              '• You can update your profile anytime\n'
+                              '• You can request data deletion by contacting admin',
+                              style: GoogleFonts.outfit(
+                                color: Colors.white.withOpacity(0.85),
+                                fontSize: 13,
+                                height: 1.5,
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(
+                                'Close',
+                                style: GoogleFonts.outfit(
+                                  color: neonCyan,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                ),
-                const SizedBox(height: 16),
-              ],
+                  Divider(
+                      height: 1,
+                      indent: 72,
+                      color: Colors.white.withOpacity(0.1)),
+                  ListTile(
+                    leading: Icon(Icons.article, color: neonCyan),
+                    title: Text(
+                      'Terms of Service',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Terms and conditions',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white.withOpacity(0.7),
+                      ),
+                    ),
+                    trailing: Icon(Icons.chevron_right, color: neonCyan),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          backgroundColor: darkCard,
+                          title: Text(
+                            'Terms of Service',
+                            style: GoogleFonts.outfit(
+                              color: neonCyan,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          content: SingleChildScrollView(
+                            child: Text(
+                              'By using INFYNERS, you agree to the following terms:\n\n'
+                              '1. User Conduct:\n'
+                              '• Be respectful to other members\n'
+                              '• Do not post inappropriate content\n'
+                              '• Follow academic integrity guidelines\n\n'
+                              '2. Account Responsibility:\n'
+                              '• Keep your password secure\n'
+                              '• Do not share your account\n'
+                              '• Report any security issues\n\n'
+                              '3. Content Guidelines:\n'
+                              '• Posted content should be relevant\n'
+                              '• Do not spread misinformation\n'
+                              '• Respect intellectual property\n\n'
+                              '4. Service Availability:\n'
+                              '• We strive for 24/7 availability\n'
+                              '• Maintenance may cause downtime\n'
+                              '• Features may be updated',
+                              style: GoogleFonts.outfit(
+                                color: Colors.white.withOpacity(0.85),
+                                fontSize: 13,
+                                height: 1.5,
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(
+                                'Close',
+                                style: GoogleFonts.outfit(
+                                  color: neonCyan,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1, indent: 72),
+                  ListTile(
+                    leading: const Icon(Icons.badge, color: Colors.grey),
+                    title: const Text('App Version'),
+                    subtitle: const Text('1.0.0+1'),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Text(
+                        'Latest',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+
+            const SizedBox(height: 24),
+
+            // Footer
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  Text(
+                    'INFYNERS',
+                    style: GoogleFonts.outfit(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: neonCyan,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Batch Notice & Updates Platform',
+                    style: GoogleFonts.outfit(
+                      fontSize: 12,
+                      color: Colors.white.withOpacity(0.7),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -4357,17 +4742,17 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _buildSectionHeader(
       BuildContext context, String title, IconData icon) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Theme.of(context).colorScheme.primary),
-          const SizedBox(width: 8),
+          Icon(icon, color: neonCyan, size: 24),
+          const SizedBox(width: 12),
           Text(
             title,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).colorScheme.primary,
+            style: GoogleFonts.outfit(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
         ],
@@ -4469,8 +4854,22 @@ class AboutUsPage extends StatelessWidget {
                   _buildSectionTitle(
                       context, 'About the App', Icons.info_outline),
                   const SizedBox(height: 12),
-                  Card(
-                    elevation: 2,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: darkCard,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: neonCyan.withOpacity(0.2),
+                        width: 1,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: neonCyan.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Column(
@@ -4478,17 +4877,19 @@ class AboutUsPage extends StatelessWidget {
                         children: [
                           Text(
                             'INFYNERS is a comprehensive batch notice and updates management platform designed to streamline communication between students and educators.',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.outfit(
                               fontSize: 14,
                               height: 1.6,
+                              color: Colors.white.withOpacity(0.85),
                             ),
                           ),
                           const SizedBox(height: 16),
                           Text(
                             'Key Features:',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.outfit(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
+                              color: neonCyan,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -4673,17 +5074,17 @@ class AboutUsPage extends StatelessWidget {
                       children: [
                         Text(
                           '© 2025 INFYNERS',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.outfit(
                             fontSize: 12,
-                            color: Colors.grey.shade600,
+                            color: Colors.white.withOpacity(0.7),
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           'Made for Dept. of ICE, Daffodil International University',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.outfit(
                             fontSize: 11,
-                            color: Colors.grey.shade500,
+                            color: Colors.white.withOpacity(0.6),
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -4706,18 +5107,26 @@ class AboutUsPage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: electricPurple.withOpacity(0.2),
             borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: neonCyan.withOpacity(0.3),
+              width: 1,
+            ),
           ),
-          child: Icon(icon,
-              size: 20, color: Theme.of(context).colorScheme.primary),
+          child: Icon(
+            icon,
+            size: 20,
+            color: neonCyan,
+          ),
         ),
         const SizedBox(width: 12),
         Text(
           title,
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.outfit(
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ],
@@ -4729,12 +5138,15 @@ class AboutUsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Icon(icon, size: 18, color: Colors.blue.shade700),
+          Icon(icon, size: 18, color: neonCyan),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               text,
-              style: GoogleFonts.poppins(fontSize: 13),
+              style: GoogleFonts.outfit(
+                fontSize: 13,
+                color: Colors.white.withOpacity(0.85),
+              ),
             ),
           ),
         ],
@@ -5001,157 +5413,337 @@ class AnalyticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkBg,
       appBar: AppBar(
-        title: const Text('Analytics'),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        backgroundColor: darkBg,
+        elevation: 0,
+        title: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [neonCyan, electricPurple],
+          ).createShader(bounds),
+          child: Text(
+            'Analytics',
+            style: GoogleFonts.outfit(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Content Statistics',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('notices').snapshots(),
-              builder: (context, snap) {
-                final noticeCount = snap.hasData ? snap.data!.docs.length : 0;
-                final pollCount = snap.hasData
-                    ? snap.data!.docs
-                        .where((d) =>
-                            (d.data() as Map<String, dynamic>)['isPoll'] ==
-                            true)
-                        .length
-                    : 0;
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              darkBg,
+              const Color(0xFF1A1F3A),
+              electricPurple.withOpacity(0.1),
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Content Statistics',
+                  style: GoogleFonts.outfit(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+              const SizedBox(height: 16),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('notices')
+                    .snapshots(),
+                builder: (context, snap) {
+                  final noticeCount = snap.hasData ? snap.data!.docs.length : 0;
+                  final pollCount = snap.hasData
+                      ? snap.data!.docs
+                          .where((d) =>
+                              (d.data() as Map<String, dynamic>)['isPoll'] ==
+                              true)
+                          .length
+                      : 0;
 
-                return Card(
-                  child: ListTile(
-                    leading: const Icon(Icons.announcement,
-                        size: 40, color: Colors.indigo),
-                    title: const Text('Total Notices'),
-                    subtitle: Text('Polls: $pollCount'),
-                    trailing: Text('$noticeCount',
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 8),
-            StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('exams').snapshots(),
-              builder: (context, snap) {
-                final eventCount = snap.hasData ? snap.data!.docs.length : 0;
-                final withDates = snap.hasData
-                    ? snap.data!.docs
-                        .where((d) =>
-                            (d.data() as Map<String, dynamic>)['eventDate'] !=
-                            null)
-                        .length
-                    : 0;
-
-                return Card(
-                  child: ListTile(
-                    leading:
-                        const Icon(Icons.event, size: 40, color: Colors.green),
-                    title: const Text('Total Events'),
-                    subtitle: Text('With dates: $withDates'),
-                    trailing: Text('$eventCount',
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 24),
-            const Text('Engagement',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collectionGroup('comments')
-                  .snapshots(),
-              builder: (context, snap) {
-                final commentCount = snap.hasData ? snap.data!.docs.length : 0;
-
-                return Card(
-                  child: ListTile(
-                    leading: const Icon(Icons.comment,
-                        size: 40, color: Colors.orange),
-                    title: const Text('Total Comments'),
-                    trailing: Text('$commentCount',
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 8),
-            StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collectionGroup('votes')
-                  .snapshots(),
-              builder: (context, snap) {
-                final voteCount = snap.hasData ? snap.data!.docs.length : 0;
-
-                return Card(
-                  child: ListTile(
-                    leading: const Icon(Icons.how_to_vote,
-                        size: 40, color: Colors.purple),
-                    title: const Text('Total Poll Votes'),
-                    trailing: Text('$voteCount',
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 24),
-            const Text('Recent Activity',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('notices')
-                  .orderBy('time', descending: true)
-                  .limit(5)
-                  .snapshots(),
-              builder: (context, snap) {
-                if (!snap.hasData) return const CircularProgressIndicator();
-
-                return Card(
-                  child: Column(
-                    children: [
-                      const ListTile(
-                        title: Text('Latest Notices',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                  return Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          neonCyan.withOpacity(0.1),
+                          electricPurple.withOpacity(0.1),
+                        ],
                       ),
-                      ...snap.data!.docs.map((doc) {
-                        final data = doc.data() as Map<String, dynamic>;
-                        final text = data['text']?.toString() ?? '';
-                        return ListTile(
-                          dense: true,
-                          title: Text(
-                            text,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          leading: Icon(
-                            data['isPoll'] == true ? Icons.poll : Icons.article,
-                            size: 20,
-                          ),
-                        );
-                      }),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: neonCyan.withOpacity(0.3),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: neonCyan.withOpacity(0.2),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      leading:
+                          Icon(Icons.announcement, size: 40, color: neonCyan),
+                      title: Text('Total Notices',
+                          style: GoogleFonts.outfit(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                      subtitle: Text('Polls: $pollCount',
+                          style: GoogleFonts.outfit(
+                              color: Colors.white.withOpacity(0.7))),
+                      trailing: Text('$noticeCount',
+                          style: GoogleFonts.outfit(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: neonCyan)),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+              StreamBuilder<QuerySnapshot>(
+                stream:
+                    FirebaseFirestore.instance.collection('exams').snapshots(),
+                builder: (context, snap) {
+                  final eventCount = snap.hasData ? snap.data!.docs.length : 0;
+                  final withDates = snap.hasData
+                      ? snap.data!.docs
+                          .where((d) =>
+                              (d.data() as Map<String, dynamic>)['eventDate'] !=
+                              null)
+                          .length
+                      : 0;
+
+                  return Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          accentGreen.withOpacity(0.1),
+                          neonCyan.withOpacity(0.1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: accentGreen.withOpacity(0.3),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: accentGreen.withOpacity(0.2),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      leading: Icon(Icons.event, size: 40, color: accentGreen),
+                      title: Text('Total Events',
+                          style: GoogleFonts.outfit(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                      subtitle: Text('With dates: $withDates',
+                          style: GoogleFonts.outfit(
+                              color: Colors.white.withOpacity(0.7))),
+                      trailing: Text('$eventCount',
+                          style: GoogleFonts.outfit(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: accentGreen)),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 24),
+              Text('Engagement',
+                  style: GoogleFonts.outfit(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+              const SizedBox(height: 16),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collectionGroup('comments')
+                    .snapshots(),
+                builder: (context, snap) {
+                  final commentCount =
+                      snap.hasData ? snap.data!.docs.length : 0;
+
+                  return Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          accentPink.withOpacity(0.1),
+                          electricPurple.withOpacity(0.1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: accentPink.withOpacity(0.3),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: accentPink.withOpacity(0.2),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      leading: Icon(Icons.comment, size: 40, color: accentPink),
+                      title: Text('Total Comments',
+                          style: GoogleFonts.outfit(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                      trailing: Text('$commentCount',
+                          style: GoogleFonts.outfit(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: accentPink)),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collectionGroup('votes')
+                    .snapshots(),
+                builder: (context, snap) {
+                  final voteCount = snap.hasData ? snap.data!.docs.length : 0;
+
+                  return Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          electricPurple.withOpacity(0.1),
+                          neonCyan.withOpacity(0.1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: electricPurple.withOpacity(0.3),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: electricPurple.withOpacity(0.2),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      leading: Icon(Icons.how_to_vote,
+                          size: 40, color: electricPurple),
+                      title: Text('Total Poll Votes',
+                          style: GoogleFonts.outfit(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                      trailing: Text('$voteCount',
+                          style: GoogleFonts.outfit(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: electricPurple)),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 24),
+              Text('Recent Activity',
+                  style: GoogleFonts.outfit(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+              const SizedBox(height: 16),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('notices')
+                    .orderBy('time', descending: true)
+                    .limit(5)
+                    .snapshots(),
+                builder: (context, snap) {
+                  if (!snap.hasData) return const CircularProgressIndicator();
+
+                  return Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          neonCyan.withOpacity(0.1),
+                          electricPurple.withOpacity(0.1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: neonCyan.withOpacity(0.3),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: neonCyan.withOpacity(0.2),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text('Latest Notices',
+                              style: GoogleFonts.outfit(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        ),
+                        ...snap.data!.docs.map((doc) {
+                          final data = doc.data() as Map<String, dynamic>;
+                          final text = data['text']?.toString() ?? '';
+                          return ListTile(
+                            dense: true,
+                            title: Text(
+                              text,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.outfit(
+                                  color: Colors.white.withOpacity(0.9)),
+                            ),
+                            leading: Icon(
+                              data['isPoll'] == true
+                                  ? Icons.poll
+                                  : Icons.article,
+                              size: 20,
+                              color: neonCyan,
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -5385,7 +5977,11 @@ class _ExamPageState extends State<ExamPage> {
           ),
           const SizedBox(width: 8),
           IconButton(
-            icon: Icon(_showCalendarView ? Icons.list : Icons.calendar_month),
+            icon: Icon(
+              _showCalendarView ? Icons.list : Icons.calendar_month,
+              color: neonCyan,
+              size: 24,
+            ),
             tooltip: _showCalendarView ? 'List View' : 'Calendar View',
             onPressed: () =>
                 setState(() => _showCalendarView = !_showCalendarView),
@@ -5397,10 +5993,19 @@ class _ExamPageState extends State<ExamPage> {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: ElevatedButton.icon(
             onPressed: () => setState(() => _showAdminPanel = !_showAdminPanel),
-            icon: Icon(_showAdminPanel ? Icons.expand_less : Icons.expand_more),
-            label: Text(_showAdminPanel ? 'Hide Post Panel' : 'Post Event'),
+            icon: Icon(
+              _showAdminPanel ? Icons.expand_less : Icons.expand_more,
+              color: Colors.white,
+            ),
+            label: Text(
+              _showAdminPanel ? 'Hide Post Panel' : 'Post Event',
+              style: GoogleFonts.outfit(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.indigo,
+              backgroundColor: electricPurple,
               foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 40),
             ),
@@ -5417,15 +6022,47 @@ class _ExamPageState extends State<ExamPage> {
                 controller: quizCtrl,
                 maxLines: 4,
                 textInputAction: TextInputAction.newline,
-                decoration: const InputDecoration(
+                style: GoogleFonts.outfit(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+                decoration: InputDecoration(
                   labelText: 'Quiz / Assignment / Presentation',
-                  border: OutlineInputBorder(),
+                  labelStyle: GoogleFonts.outfit(
+                    color: Colors.white.withOpacity(0.7),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan.withOpacity(0.3),
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan.withOpacity(0.3),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan,
+                      width: 2,
+                    ),
+                  ),
                   alignLabelWithHint: true,
+                  hintStyle: GoogleFonts.outfit(
+                    color: Colors.white.withOpacity(0.5),
+                  ),
                 ),
               ),
               const SizedBox(height: 4),
               Row(children: [
-                const Text('Event Date: ', style: TextStyle(fontSize: 12)),
+                Text(
+                  'Event Date: ',
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    color: Colors.white.withOpacity(0.8),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Expanded(
                   child: TextButton.icon(
                     icon: const Icon(Icons.calendar_today, size: 16),
@@ -5433,7 +6070,10 @@ class _ExamPageState extends State<ExamPage> {
                       _quizDate == null
                           ? 'Set Date'
                           : '${_quizDate!.day}/${_quizDate!.month}/${_quizDate!.year}',
-                      style: const TextStyle(fontSize: 12),
+                      style: GoogleFonts.outfit(
+                        fontSize: 12,
+                        color: neonCyan,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     onPressed: () async {
@@ -5451,6 +6091,8 @@ class _ExamPageState extends State<ExamPage> {
                 if (_quizDate != null)
                   IconButton(
                     icon: const Icon(Icons.clear, size: 16),
+                    iconSize: 16,
+                    color: accentPink,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     onPressed: () => setState(() => _quizDate = null),
@@ -5462,15 +6104,47 @@ class _ExamPageState extends State<ExamPage> {
                 controller: midCtrl,
                 maxLines: 4,
                 textInputAction: TextInputAction.newline,
-                decoration: const InputDecoration(
+                style: GoogleFonts.outfit(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+                decoration: InputDecoration(
                   labelText: 'Mid Exam Details',
-                  border: OutlineInputBorder(),
+                  labelStyle: GoogleFonts.outfit(
+                    color: Colors.white.withOpacity(0.7),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan.withOpacity(0.3),
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan.withOpacity(0.3),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan,
+                      width: 2,
+                    ),
+                  ),
                   alignLabelWithHint: true,
+                  hintStyle: GoogleFonts.outfit(
+                    color: Colors.white.withOpacity(0.5),
+                  ),
                 ),
               ),
               const SizedBox(height: 4),
               Row(children: [
-                const Text('Event Date: ', style: TextStyle(fontSize: 12)),
+                Text(
+                  'Event Date: ',
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    color: Colors.white.withOpacity(0.8),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Expanded(
                   child: TextButton.icon(
                     icon: const Icon(Icons.calendar_today, size: 16),
@@ -5478,7 +6152,10 @@ class _ExamPageState extends State<ExamPage> {
                       _midDate == null
                           ? 'Set Date'
                           : '${_midDate!.day}/${_midDate!.month}/${_midDate!.year}',
-                      style: const TextStyle(fontSize: 12),
+                      style: GoogleFonts.outfit(
+                        fontSize: 12,
+                        color: neonCyan,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     onPressed: () async {
@@ -5507,15 +6184,47 @@ class _ExamPageState extends State<ExamPage> {
                 controller: finalCtrl,
                 maxLines: 4,
                 textInputAction: TextInputAction.newline,
-                decoration: const InputDecoration(
+                style: GoogleFonts.outfit(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+                decoration: InputDecoration(
                   labelText: 'Final Exam Details',
-                  border: OutlineInputBorder(),
+                  labelStyle: GoogleFonts.outfit(
+                    color: Colors.white.withOpacity(0.7),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan.withOpacity(0.3),
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan.withOpacity(0.3),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: neonCyan,
+                      width: 2,
+                    ),
+                  ),
                   alignLabelWithHint: true,
+                  hintStyle: GoogleFonts.outfit(
+                    color: Colors.white.withOpacity(0.5),
+                  ),
                 ),
               ),
               const SizedBox(height: 4),
               Row(children: [
-                const Text('Event Date: ', style: TextStyle(fontSize: 12)),
+                Text(
+                  'Event Date: ',
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    color: Colors.white.withOpacity(0.8),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Expanded(
                   child: TextButton.icon(
                     icon: const Icon(Icons.calendar_today, size: 16),
@@ -5523,7 +6232,10 @@ class _ExamPageState extends State<ExamPage> {
                       _finalDate == null
                           ? 'Set Date'
                           : '${_finalDate!.day}/${_finalDate!.month}/${_finalDate!.year}',
-                      style: const TextStyle(fontSize: 12),
+                      style: GoogleFonts.outfit(
+                        fontSize: 12,
+                        color: neonCyan,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     onPressed: () async {
@@ -5541,6 +6253,8 @@ class _ExamPageState extends State<ExamPage> {
                 if (_finalDate != null)
                   IconButton(
                     icon: const Icon(Icons.clear, size: 16),
+                    iconSize: 16,
+                    color: accentPink,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     onPressed: () => setState(() => _finalDate = null),
@@ -5552,9 +6266,16 @@ class _ExamPageState extends State<ExamPage> {
                 child: ElevatedButton(
                   onPressed: postAll,
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo,
-                      foregroundColor: Colors.white),
-                  child: const Text('Post Exam Info (separate entries)'),
+                    backgroundColor: electricPurple,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Text(
+                    'Post Exam Info (separate entries)',
+                    style: GoogleFonts.outfit(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ]),
@@ -5579,7 +6300,15 @@ class _ExamPageState extends State<ExamPage> {
         }).toList();
 
         if (events.isEmpty) {
-          return const Center(child: Text('No events with dates'));
+          return Center(
+            child: Text(
+              'No events with dates',
+              style: GoogleFonts.outfit(
+                fontSize: 16,
+                color: Colors.white.withOpacity(0.7),
+              ),
+            ),
+          );
         }
 
         // Group by month
@@ -5625,8 +6354,11 @@ class _ExamPageState extends State<ExamPage> {
                   padding: const EdgeInsets.all(12),
                   child: Text(
                     '$monthName ${date.year}',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.outfit(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 ...monthEvents.map((doc) {
@@ -5635,24 +6367,54 @@ class _ExamPageState extends State<ExamPage> {
                   final details = data['details']?.toString() ?? '';
                   final eventDate = (data['eventDate'] as Timestamp).toDate();
 
-                  return Card(
+                  return Container(
                     margin:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: darkCard,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: neonCyan.withOpacity(0.3),
+                        width: 1.5,
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.white.withOpacity(0.05),
+                          Colors.white.withOpacity(0.02),
+                        ],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: neonCyan.withOpacity(0.15),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
                     child: ListTile(
                       leading: Container(
                         width: 50,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Colors.indigo.shade100,
+                          color: electricPurple.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: neonCyan.withOpacity(0.3),
+                            width: 1,
+                          ),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               eventDate.day.toString(),
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                              style: GoogleFonts.outfit(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                             Text(
                               [
@@ -5670,15 +6432,31 @@ class _ExamPageState extends State<ExamPage> {
                                 'Nov',
                                 'Dec'
                               ][eventDate.month],
-                              style: const TextStyle(fontSize: 10),
+                              style: GoogleFonts.outfit(
+                                fontSize: 9,
+                                color: Colors.white.withOpacity(0.7),
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      title: Text(type,
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text(details,
-                          maxLines: 2, overflow: TextOverflow.ellipsis),
+                      title: Text(
+                        type,
+                        style: GoogleFonts.outfit(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: neonCyan,
+                        ),
+                      ),
+                      subtitle: Text(
+                        details,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.outfit(
+                          fontSize: 13,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                      ),
                     ),
                   );
                 }),
@@ -5700,7 +6478,16 @@ class _ExamPageState extends State<ExamPage> {
         if (!snap.hasData)
           return const Center(child: CircularProgressIndicator());
         final docs = snap.data!.docs;
-        if (docs.isEmpty) return const Center(child: Text('No exam info yet'));
+        if (docs.isEmpty)
+          return Center(
+            child: Text(
+              'No exam info yet',
+              style: GoogleFonts.outfit(
+                fontSize: 18,
+                color: Colors.white.withOpacity(0.7),
+              ),
+            ),
+          );
 
         // Filter by search query and type
         final filtered = docs.where((doc) {
@@ -5723,7 +6510,15 @@ class _ExamPageState extends State<ExamPage> {
         }).toList();
 
         if (filtered.isEmpty) {
-          return const Center(child: Text('No events match your filters'));
+          return Center(
+            child: Text(
+              'No events match your filters',
+              style: GoogleFonts.outfit(
+                fontSize: 16,
+                color: Colors.white.withOpacity(0.7),
+              ),
+            ),
+          );
         }
 
         return ListView.builder(
@@ -5737,32 +6532,78 @@ class _ExamPageState extends State<ExamPage> {
             final dateStr = eventDate != null
                 ? '📅 ${eventDate.toDate().day}/${eventDate.toDate().month}/${eventDate.toDate().year}'
                 : '';
-            return Card(
+            return Container(
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: darkCard,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: neonCyan.withOpacity(0.3),
+                  width: 1.5,
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.white.withOpacity(0.05),
+                    Colors.white.withOpacity(0.02),
+                  ],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: neonCyan.withOpacity(0.15),
+                    blurRadius: 15,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
               child: ListTile(
-                title: Text(type,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                title: Text(
+                  type,
+                  style: GoogleFonts.outfit(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: neonCyan,
+                  ),
+                ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (dateStr.isNotEmpty)
-                      Text(dateStr,
-                          style: const TextStyle(
-                              fontSize: 12, color: Colors.blue)),
-                    Text(details, style: const TextStyle(height: 1.4)),
+                      Text(
+                        dateStr,
+                        style: GoogleFonts.outfit(
+                          fontSize: 12,
+                          color: accentGreen,
+                        ),
+                      ),
+                    Text(
+                      details,
+                      style: GoogleFonts.outfit(
+                        fontSize: 13,
+                        color: Colors.white.withOpacity(0.8),
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
                 trailing: isAdmin
                     ? Row(mainAxisSize: MainAxisSize.min, children: [
                         IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () => _editExamDoc(doc)),
+                          icon: const Icon(Icons.edit),
+                          iconSize: 20,
+                          color: neonCyan,
+                          onPressed: () => _editExamDoc(doc),
+                        ),
                         IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () async {
-                              await doc.reference.delete();
-                              Fluttertoast.showToast(msg: 'Deleted');
-                            }),
+                          icon: const Icon(Icons.delete),
+                          iconSize: 20,
+                          color: accentPink,
+                          onPressed: () async {
+                            await doc.reference.delete();
+                            Fluttertoast.showToast(msg: 'Deleted');
+                          },
+                        ),
                       ])
                     : null,
               ),
@@ -5895,56 +6736,119 @@ class _RoutinePageState extends State<RoutinePage> {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(children: [
-        Row(children: [
-          const Text('Day:', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(width: 8),
-          Expanded(
-            child: DropdownButton<String>(
-              value: selectedDay,
-              isExpanded: true,
-              items: const [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday'
-              ].map((d) => DropdownMenuItem(value: d, child: Text(d))).toList(),
-              onChanged: (v) async {
-                if (v == null) return;
-                setState(() => selectedDay = v);
-                await loadRoutine();
-              },
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                neonCyan.withOpacity(0.1),
+                electricPurple.withOpacity(0.1),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: neonCyan.withOpacity(0.3),
+              width: 1.5,
             ),
           ),
-          const SizedBox(width: 8),
-          if (isAdmin)
-            ElevatedButton(
-              onPressed: saveRoutine,
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo,
-                  foregroundColor: Colors.white),
-              child: const Text('Save'),
+          child: Row(children: [
+            Text('Day:',
+                style: GoogleFonts.outfit(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 16,
+                )),
+            const SizedBox(width: 8),
+            Expanded(
+              child: DropdownButton<String>(
+                value: selectedDay,
+                isExpanded: true,
+                dropdownColor: darkCard,
+                style: GoogleFonts.outfit(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+                items: const [
+                  'Sunday',
+                  'Monday',
+                  'Tuesday',
+                  'Wednesday',
+                  'Thursday',
+                  'Friday',
+                  'Saturday'
+                ]
+                    .map((d) => DropdownMenuItem(value: d, child: Text(d)))
+                    .toList(),
+                onChanged: (v) async {
+                  if (v == null) return;
+                  setState(() => selectedDay = v);
+                  await loadRoutine();
+                },
+              ),
             ),
-        ]),
+            const SizedBox(width: 8),
+            if (isAdmin)
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [neonCyan, electricPurple],
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ElevatedButton(
+                  onPressed: saveRoutine,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    shadowColor: Colors.transparent,
+                  ),
+                  child: Text('Save',
+                      style: GoogleFonts.outfit(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      )),
+                ),
+              ),
+          ]),
+        ),
         const SizedBox(height: 10),
         Expanded(
           child: ListView.builder(
             itemCount: times.length,
             itemBuilder: (context, i) {
               final slot = daySlots[i];
-              return Card(
+              return Container(
                 margin: const EdgeInsets.symmetric(vertical: 6),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      neonCyan.withOpacity(0.1),
+                      electricPurple.withOpacity(0.1),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: neonCyan.withOpacity(0.3),
+                    width: 1.5,
+                  ),
+                ),
                 child: ListTile(
                   title: Text(times[i],
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                      style: GoogleFonts.outfit(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 16,
+                      )),
                   subtitle: Text(
                       'Course: ${slot['course']}\nTeacher: ${slot['teacher']}\nRoom: ${slot['room']}',
-                      style: const TextStyle(height: 1.3)),
+                      style: GoogleFonts.outfit(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 13,
+                      )),
                   trailing: isAdmin
                       ? IconButton(
-                          icon: const Icon(Icons.edit),
+                          icon: const Icon(Icons.edit, color: neonCyan),
                           onPressed: () => _editSlot(i))
                       : null,
                 ),
@@ -6425,475 +7329,579 @@ class _MembersPageState extends State<MembersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkBg,
       appBar: AppBar(
-        title: const Text('Members'),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        backgroundColor: darkBg,
+        elevation: 0,
+        title: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [neonCyan, electricPurple],
+          ).createShader(bounds),
+          child: Text(
+            'Members',
+            style: GoogleFonts.outfit(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('users').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error, size: 48, color: Colors.red),
-                  const SizedBox(height: 16),
-                  Text('Error loading members:\n${snapshot.error}'),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => setState(() {}),
-                    child: const Text('Retry'),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          final members = snapshot.data?.docs ?? [];
-
-          if (members.isEmpty) {
-            return const Center(child: Text('No members found'));
-          }
-
-          final activeMembers = members.where((doc) {
-            final data = doc.data() as Map<String, dynamic>;
-            return data['isActive'] != false;
-          }).length;
-          final deactivatedMembers = members.length - activeMembers;
-
-          return Column(
-            children: [
-              // Statistics Cards
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.blue.shade700, Colors.blue.shade500],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              darkBg,
+              const Color(0xFF1A1F3A),
+              electricPurple.withOpacity(0.1),
+            ],
+          ),
+        ),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('users').snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Members Overview',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    const Icon(Icons.error, size: 48, color: Colors.red),
                     const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildStatCard(
-                            'Total',
-                            members.length.toString(),
-                            Icons.people,
-                            Colors.white,
-                            Colors.blue.shade800,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildStatCard(
-                            'Active',
-                            activeMembers.toString(),
-                            Icons.check_circle,
-                            Colors.green.shade50,
-                            Colors.green.shade700,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildStatCard(
-                            'Inactive',
-                            deactivatedMembers.toString(),
-                            Icons.block,
-                            Colors.red.shade50,
-                            Colors.red.shade700,
-                          ),
-                        ),
-                      ],
+                    Text('Error loading members:\n${snapshot.error}'),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () => setState(() {}),
+                      child: const Text('Retry'),
                     ),
                   ],
                 ),
-              ),
+              );
+            }
 
-              // Enhanced Export Section
-              Container(
-                margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade300,
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.red.shade50,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Icon(Icons.picture_as_pdf,
-                              color: Colors.red.shade700),
-                        ),
-                        const SizedBox(width: 12),
-                        const Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Export to PDF',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'Select fields to include in export',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            final members = snapshot.data?.docs ?? [];
+
+            if (members.isEmpty) {
+              return const Center(child: Text('No members found'));
+            }
+
+            final activeMembers = members.where((doc) {
+              final data = doc.data() as Map<String, dynamic>;
+              return data['isActive'] != false;
+            }).length;
+            final deactivatedMembers = members.length - activeMembers;
+
+            return Column(
+              children: [
+                // Statistics Cards
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        neonCyan.withOpacity(0.2),
+                        electricPurple.withOpacity(0.2)
                       ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                    const SizedBox(height: 16),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        _buildFieldChip('name', 'Name'),
-                        _buildFieldChip('registrationId', 'Reg ID'),
-                        _buildFieldChip('department', 'Department'),
-                        _buildFieldChip('bloodGroup', 'Blood Group'),
-                        _buildFieldChip('mobile', 'Mobile'),
-                        _buildFieldChip('email', 'Email'),
-                      ],
+                    border: Border.all(
+                      color: neonCyan.withOpacity(0.3),
+                      width: 1.5,
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton.icon(
-                            onPressed: _selectedFields.isEmpty
-                                ? null
-                                : () => _exportAllMembersPDF(members),
-                            icon: const Icon(Icons.download),
-                            label: Text('Export ${members.length} Members'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red.shade600,
-                              foregroundColor: Colors.white,
-                              disabledBackgroundColor: Colors.grey.shade300,
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              elevation: 2,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (_selectedFields.isEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Row(
-                          children: [
-                            Icon(Icons.info_outline,
-                                size: 16, color: Colors.orange.shade700),
-                            const SizedBox(width: 6),
-                            Text(
-                              'Please select at least one field to export',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.orange.shade700,
-                              ),
-                            ),
-                          ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Members Overview',
+                        style: GoogleFonts.outfit(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                  ],
-                ),
-              ),
-              // Members list
-              Expanded(
-                child: ListView.builder(
-                  itemCount: members.length,
-                  itemBuilder: (context, index) {
-                    final doc = members[index];
-                    final data = doc.data() as Map<String, dynamic>;
-
-                    final name = data['name']?.toString() ?? 'No Name';
-                    final regId = data['registrationId']?.toString() ?? '';
-                    final dept = data['department']?.toString() ?? '';
-                    final bloodGroup = data['bloodGroup']?.toString() ?? '';
-                    final mobile = data['mobile']?.toString() ?? '';
-                    final email = data['email']?.toString() ?? '';
-                    final profilePicUrl = data['profilePicUrl'];
-                    final isActive = data['isActive'] ?? true;
-
-                    ImageProvider? avatarImage;
-                    if (profilePicUrl != null) {
-                      if (profilePicUrl.startsWith('data:image')) {
-                        final base64Data = profilePicUrl.split(',').last;
-                        avatarImage = MemoryImage(base64Decode(base64Data));
-                      } else {
-                        avatarImage = NetworkImage(profilePicUrl);
-                      }
-                    }
-
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: isActive ? Colors.white : Colors.red.shade50,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: isActive
-                              ? Colors.grey.shade300
-                              : Colors.red.shade300,
-                          width: 1.5,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade200,
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildStatCard(
+                              'Total',
+                              members.length.toString(),
+                              Icons.people,
+                              Colors.white,
+                              neonCyan,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _buildStatCard(
+                              'Active',
+                              activeMembers.toString(),
+                              Icons.check_circle,
+                              Colors.white,
+                              accentGreen,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _buildStatCard(
+                              'Inactive',
+                              deactivatedMembers.toString(),
+                              Icons.block,
+                              Colors.white,
+                              accentPink,
+                            ),
                           ),
                         ],
                       ),
-                      child: ExpansionTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        leading: Stack(
-                          children: [
-                            CircleAvatar(
-                              radius: 24,
-                              backgroundImage: avatarImage,
-                              child: profilePicUrl == null
-                                  ? Text(name[0].toUpperCase())
-                                  : null,
-                            ),
-                            if (!isActive)
-                              Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.red,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.block,
-                                    size: 12,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                        title: Row(
-                          children: [
-                            Expanded(
-                              child: Text(name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            if (!isActive)
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 2),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: const Text(
-                                  'DEACTIVATED',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                        subtitle: Text(regId.isNotEmpty ? regId : email),
+                    ],
+                  ),
+                ),
+
+                // Enhanced Export Section
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade300,
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.red.shade50,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(Icons.picture_as_pdf,
+                                color: Colors.red.shade700),
+                          ),
+                          const SizedBox(width: 12),
+                          const Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (regId.isNotEmpty)
-                                  _buildInfoRow('ID', regId),
-                                if (dept.isNotEmpty)
-                                  _buildInfoRow('Department', dept),
-                                if (bloodGroup.isNotEmpty)
-                                  _buildInfoRow('Blood Group', bloodGroup),
-                                if (mobile.isNotEmpty)
-                                  _buildInfoRow('Mobile', mobile),
-                                _buildInfoRow('Email', email),
-                                if (!isActive)
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 8),
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.red.shade100,
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                          color: Colors.red.shade300),
-                                    ),
-                                    child: const Row(
-                                      children: [
-                                        Icon(Icons.info_outline,
-                                            color: Colors.red, size: 20),
-                                        SizedBox(width: 8),
-                                        Expanded(
-                                          child: Text(
-                                            'This user account is currently deactivated',
-                                            style: TextStyle(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                Text(
+                                  'Export to PDF',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
                                   ),
-                                const SizedBox(height: 16),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if (isActive) ...[
-                                      ElevatedButton.icon(
-                                        onPressed: () =>
-                                            _exportSingleMemberPDF(data),
-                                        icon: const Icon(Icons.picture_as_pdf,
-                                            size: 18),
-                                        label: const Text('Export PDF'),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.red,
-                                          foregroundColor: Colors.white,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      ElevatedButton.icon(
-                                        onPressed: () =>
-                                            _deleteUser(doc.id, name),
-                                        icon: const Icon(Icons.manage_accounts,
-                                            size: 18),
-                                        label: const Text('Manage User'),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              Colors.orange.shade700,
-                                          foregroundColor: Colors.white,
-                                        ),
-                                      ),
-                                    ] else ...[
-                                      ElevatedButton.icon(
-                                        onPressed: () async {
-                                          final confirm =
-                                              await showDialog<bool>(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                              title:
-                                                  const Text('Reactivate User'),
-                                              content: Text(
-                                                  'Reactivate "$name"?\n\nThey will be able to login and access the app again.'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          context, false),
-                                                  child: const Text('Cancel'),
-                                                ),
-                                                ElevatedButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          context, true),
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                          backgroundColor:
-                                                              Colors.green),
-                                                  child:
-                                                      const Text('Reactivate'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-
-                                          if (confirm == true) {
-                                            try {
-                                              await FirebaseFirestore.instance
-                                                  .collection('users')
-                                                  .doc(doc.id)
-                                                  .update({
-                                                'isActive': true,
-                                                'reactivatedAt': FieldValue
-                                                    .serverTimestamp(),
-                                                'reactivatedBy': FirebaseAuth
-                                                    .instance.currentUser?.uid,
-                                              });
-                                              Fluttertoast.showToast(
-                                                  msg:
-                                                      'User "$name" has been reactivated');
-                                            } catch (e) {
-                                              Fluttertoast.showToast(
-                                                  msg:
-                                                      'Failed to reactivate: $e');
-                                            }
-                                          }
-                                        },
-                                        icon: const Icon(Icons.check_circle,
-                                            size: 18),
-                                        label: const Text('Reactivate User'),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.green,
-                                          foregroundColor: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ],
+                                ),
+                                Text(
+                                  'Select fields to include in export',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFFB0B0B0),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                         ],
                       ),
-                    );
-                  },
+                      const SizedBox(height: 16),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          _buildFieldChip('name', 'Name'),
+                          _buildFieldChip('registrationId', 'Reg ID'),
+                          _buildFieldChip('department', 'Department'),
+                          _buildFieldChip('bloodGroup', 'Blood Group'),
+                          _buildFieldChip('mobile', 'Mobile'),
+                          _buildFieldChip('email', 'Email'),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [accentPink, electricPurple],
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: accentPink.withOpacity(0.4),
+                                    blurRadius: 15,
+                                    offset: const Offset(0, 8),
+                                  ),
+                                ],
+                              ),
+                              child: ElevatedButton.icon(
+                                onPressed: _selectedFields.isEmpty
+                                    ? null
+                                    : () => _exportAllMembersPDF(members),
+                                icon: const Icon(Icons.download),
+                                label: Text('Export ${members.length} Members',
+                                    style: GoogleFonts.outfit(
+                                        fontWeight: FontWeight.bold)),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  foregroundColor: Colors.white,
+                                  disabledBackgroundColor: Colors.grey.shade800,
+                                  shadowColor: Colors.transparent,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 14),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (_selectedFields.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Row(
+                            children: [
+                              Icon(Icons.info_outline,
+                                  size: 16, color: Colors.orange.shade700),
+                              const SizedBox(width: 6),
+                              Text(
+                                'Please select at least one field to export',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.orange.shade700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+                // Members list
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: members.length,
+                    itemBuilder: (context, index) {
+                      final doc = members[index];
+                      final data = doc.data() as Map<String, dynamic>;
+
+                      final name = data['name']?.toString() ?? 'No Name';
+                      final regId = data['registrationId']?.toString() ?? '';
+                      final dept = data['department']?.toString() ?? '';
+                      final bloodGroup = data['bloodGroup']?.toString() ?? '';
+                      final mobile = data['mobile']?.toString() ?? '';
+                      final email = data['email']?.toString() ?? '';
+                      final profilePicUrl = data['profilePicUrl'];
+                      final isActive = data['isActive'] ?? true;
+
+                      ImageProvider? avatarImage;
+                      if (profilePicUrl != null) {
+                        if (profilePicUrl.startsWith('data:image')) {
+                          final base64Data = profilePicUrl.split(',').last;
+                          avatarImage = MemoryImage(base64Decode(base64Data));
+                        } else {
+                          avatarImage = NetworkImage(profilePicUrl);
+                        }
+                      }
+
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: isActive
+                                ? [
+                                    neonCyan.withOpacity(0.1),
+                                    electricPurple.withOpacity(0.1),
+                                  ]
+                                : [
+                                    accentPink.withOpacity(0.2),
+                                    Colors.red.withOpacity(0.2),
+                                  ],
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isActive
+                                ? neonCyan.withOpacity(0.3)
+                                : accentPink.withOpacity(0.5),
+                            width: 1.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: isActive
+                                  ? neonCyan.withOpacity(0.2)
+                                  : accentPink.withOpacity(0.3),
+                              blurRadius: 15,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
+                        ),
+                        child: ExpansionTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          iconColor: isActive ? neonCyan : accentPink,
+                          collapsedIconColor: isActive ? neonCyan : accentPink,
+                          leading: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: isActive ? neonCyan : accentPink,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: CircleAvatar(
+                                  radius: 22,
+                                  backgroundColor: darkCard,
+                                  backgroundImage: avatarImage,
+                                  child: profilePicUrl == null
+                                      ? Text(
+                                          name[0].toUpperCase(),
+                                          style: TextStyle(
+                                            color: isActive
+                                                ? neonCyan
+                                                : accentPink,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      : null,
+                                ),
+                              ),
+                              if (!isActive)
+                                Positioned(
+                                  right: 0,
+                                  bottom: 0,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                      color: accentPink,
+                                      shape: BoxShape.circle,
+                                      border:
+                                          Border.all(color: darkBg, width: 2),
+                                    ),
+                                    child: const Icon(
+                                      Icons.block,
+                                      size: 10,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          title: Row(
+                            children: [
+                              Expanded(
+                                child: Text(name,
+                                    style: GoogleFonts.outfit(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white)),
+                              ),
+                              if (!isActive)
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: accentPink,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: accentPink.withOpacity(0.4),
+                                        blurRadius: 8,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(
+                                    'DEACTIVATED',
+                                    style: GoogleFonts.outfit(
+                                      fontSize: 10,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          subtitle: Text(regId.isNotEmpty ? regId : email,
+                              style: GoogleFonts.outfit(
+                                  color: Colors.white.withOpacity(0.7))),
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (regId.isNotEmpty)
+                                    _buildInfoRow('ID', regId),
+                                  if (dept.isNotEmpty)
+                                    _buildInfoRow('Department', dept),
+                                  if (bloodGroup.isNotEmpty)
+                                    _buildInfoRow('Blood Group', bloodGroup),
+                                  if (mobile.isNotEmpty)
+                                    _buildInfoRow('Mobile', mobile),
+                                  _buildInfoRow('Email', email),
+                                  if (!isActive)
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 8),
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red.shade100,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                            color: Colors.red.shade300),
+                                      ),
+                                      child: const Row(
+                                        children: [
+                                          Icon(Icons.info_outline,
+                                              color: Colors.red, size: 20),
+                                          SizedBox(width: 8),
+                                          Expanded(
+                                            child: Text(
+                                              'This user account is currently deactivated',
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  const SizedBox(height: 16),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      if (isActive) ...[
+                                        ElevatedButton.icon(
+                                          onPressed: () =>
+                                              _exportSingleMemberPDF(data),
+                                          icon: const Icon(Icons.picture_as_pdf,
+                                              size: 18),
+                                          label: const Text('Export PDF'),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.red,
+                                            foregroundColor: Colors.white,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        ElevatedButton.icon(
+                                          onPressed: () =>
+                                              _deleteUser(doc.id, name),
+                                          icon: const Icon(
+                                              Icons.manage_accounts,
+                                              size: 18),
+                                          label: const Text('Manage User'),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                Colors.orange.shade700,
+                                            foregroundColor: Colors.white,
+                                          ),
+                                        ),
+                                      ] else ...[
+                                        ElevatedButton.icon(
+                                          onPressed: () async {
+                                            final confirm =
+                                                await showDialog<bool>(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: const Text(
+                                                    'Reactivate User'),
+                                                content: Text(
+                                                    'Reactivate "$name"?\n\nThey will be able to login and access the app again.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, false),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, true),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            backgroundColor:
+                                                                Colors.green),
+                                                    child: const Text(
+                                                        'Reactivate'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+
+                                            if (confirm == true) {
+                                              try {
+                                                await FirebaseFirestore.instance
+                                                    .collection('users')
+                                                    .doc(doc.id)
+                                                    .update({
+                                                  'isActive': true,
+                                                  'reactivatedAt': FieldValue
+                                                      .serverTimestamp(),
+                                                  'reactivatedBy': FirebaseAuth
+                                                      .instance
+                                                      .currentUser
+                                                      ?.uid,
+                                                });
+                                                Fluttertoast.showToast(
+                                                    msg:
+                                                        'User "$name" has been reactivated');
+                                              } catch (e) {
+                                                Fluttertoast.showToast(
+                                                    msg:
+                                                        'Failed to reactivate: $e');
+                                              }
+                                            }
+                                          },
+                                          icon: const Icon(Icons.check_circle,
+                                              size: 18),
+                                          label: const Text('Reactivate User'),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.green,
+                                            foregroundColor: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -6984,12 +7992,21 @@ class _MembersPageState extends State<MembersPage> {
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.blue.shade50,
+        gradient: LinearGradient(
+          colors: [
+            neonCyan.withOpacity(0.1),
+            electricPurple.withOpacity(0.1),
+          ],
+        ),
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: neonCyan.withOpacity(0.2),
+          width: 1,
+        ),
       ),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Colors.blue.shade700),
+          Icon(icon, size: 20, color: neonCyan),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -6997,18 +8014,19 @@ class _MembersPageState extends State<MembersPage> {
               children: [
                 Text(
                   label,
-                  style: TextStyle(
+                  style: GoogleFonts.outfit(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
-                    color: Colors.grey.shade600,
+                    color: Colors.white.withOpacity(0.7),
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: GoogleFonts.outfit(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
+                    color: Colors.white,
                   ),
                 ),
               ],
