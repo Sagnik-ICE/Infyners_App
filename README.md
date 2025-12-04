@@ -390,7 +390,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email sagnik.ice.pust@gmail.com or open an issue in the GitHub repository.
+For support, email dibbay242-50-014@diu.edu.bd or open an issue in the GitHub repository.
 
 ---
 
