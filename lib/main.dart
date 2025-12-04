@@ -1854,6 +1854,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _checkAdmin() async {
     final admin = await isCurrentUserAdmin();
+    debugPrint('HomePage: Admin check result = $admin');
     if (mounted) setState(() => isAdmin = admin);
   }
 
@@ -1964,6 +1965,12 @@ class _HomePageState extends State<HomePage> {
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 themeController.setMode(ThemeMode.light);
+                if (context.mounted) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const GetStartedPage()),
+                    (route) => false,
+                  );
+                }
               },
             )
           ],
@@ -2025,6 +2032,12 @@ class _HomePageState extends State<HomePage> {
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
               themeController.setMode(ThemeMode.light);
+              if (context.mounted) {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (_) => const GetStartedPage()),
+                  (route) => false,
+                );
+              }
             },
           )
         ],
