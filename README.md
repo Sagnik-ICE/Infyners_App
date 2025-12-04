@@ -379,7 +379,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Developer
 
-**Sagnik Ghosh**
+**Sagnik Saha Dibbay**
 - Institution: Daffodil International University
 - Department: Information and Communication Engineering
 - GitHub: [@Sagnik-ICE](https://github.com/Sagnik-ICE)
