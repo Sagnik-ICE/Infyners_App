@@ -253,14 +253,12 @@ Full rules available in `firestore.rules`
 
 ## 📖 Documentation
 
-Comprehensive guides are available:
+Additional setup guides are available:
 
-- 📘 **[FEATURES_SUMMARY.md](FEATURES_SUMMARY.md)** - Complete feature list
-- 🚀 **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Deployment instructions
-- 🔥 **[FIREBASE_SETUP.md](FIREBASE_SETUP.md)** - Firebase configuration
-- 💰 **[FREE_TIER_GUIDE.md](FREE_TIER_GUIDE.md)** - Free tier optimization
-- ⚡ **[QUICK_SETUP.md](QUICK_SETUP.md)** - Quick start guide
-- 🎨 **[DESIGN_GUIDE.md](DESIGN_GUIDE.md)** - UI/UX guidelines
+- 🚀 **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Complete deployment instructions for all platforms
+- 🔥 **[FIREBASE_SETUP.md](FIREBASE_SETUP.md)** - Step-by-step Firebase configuration
+- ⚡ **[QUICK_SETUP.md](QUICK_SETUP.md)** - Quick start guide for developers
+- 🎨 **[DESIGN_GUIDE.md](DESIGN_GUIDE.md)** - UI/UX design system guidelines
 
 ---
 
