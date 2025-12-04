@@ -416,6 +416,6 @@ For support, email sagnik.ice.pust@gmail.com or open an issue in the GitHub repo
 
 ### ⭐ Star this repository if you find it helpful!
 
-Made with ❤️ using Flutter and Firebase
+Made with using Flutter and Firebase
 
 </div>
