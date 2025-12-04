@@ -795,7 +795,9 @@ class _GetStartedPageState extends State<GetStartedPage>
         const SizedBox(height: 48),
         // Title
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width < 360 ? 16 : 24,
+          ),
           child: Text(
             title,
             textAlign: TextAlign.center,
@@ -814,9 +816,16 @@ class _GetStartedPageState extends State<GetStartedPage>
           textAlign: TextAlign.center,
           style: GoogleFonts.outfit(
             fontSize: 16,
-            fontWeight: FontWeight.w300,
+            fontWeight: FontWeight.w400,
             color: color,
             letterSpacing: 2,
+            shadows: [
+              Shadow(
+                color: Colors.black.withOpacity(0.5),
+                offset: const Offset(0, 2),
+                blurRadius: 4,
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 24),
@@ -828,9 +837,16 @@ class _GetStartedPageState extends State<GetStartedPage>
             textAlign: TextAlign.center,
             style: GoogleFonts.outfit(
               fontSize: 15,
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withOpacity(0.95),
               height: 1.6,
-              fontWeight: FontWeight.w300,
+              fontWeight: FontWeight.w400,
+              shadows: [
+                Shadow(
+                  color: Colors.black.withOpacity(0.4),
+                  offset: const Offset(0, 1),
+                  blurRadius: 3,
+                ),
+              ],
             ),
           ),
         ),
@@ -853,11 +869,20 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscurePassword = true;
 
   Future<void> login() async {
+    final emailText = email.text.trim();
+    final passwordText = password.text.trim();
+
+    // Validate inputs
+    if (emailText.isEmpty || passwordText.isEmpty) {
+      Fluttertoast.showToast(msg: 'Please fill in all fields');
+      return;
+    }
+
     setState(() => _loading = true);
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email.text.trim(),
-        password: password.text.trim(),
+        email: emailText,
+        password: passwordText,
       );
 
       final userId = credential.user?.uid;
@@ -873,21 +898,35 @@ class _LoginPageState extends State<LoginPage> {
 
           if (!isActive) {
             await FirebaseAuth.instance.signOut();
+            if (mounted) setState(() => _loading = false);
             Fluttertoast.showToast(
               msg: 'Your account has been deactivated. Please contact admin.',
               toastLength: Toast.LENGTH_LONG,
             );
-            if (mounted) setState(() => _loading = false);
             return;
           }
         }
       }
 
+      // Keep loading state until AuthGate detects the change
       Fluttertoast.showToast(msg: "Login successful!");
-    } catch (e) {
-      Fluttertoast.showToast(msg: "Login failed: ${e.toString()}");
-    } finally {
+      // Don't reset loading here - let AuthGate handle navigation
+    } on FirebaseAuthException catch (e) {
       if (mounted) setState(() => _loading = false);
+      String message = 'Login failed';
+      if (e.code == 'user-not-found') {
+        message = 'No account found with this email';
+      } else if (e.code == 'wrong-password') {
+        message = 'Incorrect password';
+      } else if (e.code == 'invalid-email') {
+        message = 'Invalid email address';
+      } else if (e.code == 'user-disabled') {
+        message = 'This account has been disabled';
+      }
+      Fluttertoast.showToast(msg: message);
+    } catch (e) {
+      if (mounted) setState(() => _loading = false);
+      Fluttertoast.showToast(msg: "Error: ${e.toString()}");
     }
   }
 
@@ -982,7 +1021,9 @@ class _LoginPageState extends State<LoginPage> {
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width < 360 ? 16 : 24,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -1117,52 +1158,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
 
-                          const SizedBox(height: 24),
-
-                          // Divider
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  height: 1,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.white.withOpacity(0.1),
-                                        Colors.white.withOpacity(0),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                child: Text(
-                                  'or sign up',
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.6),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  height: 1,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.white.withOpacity(0),
-                                        Colors.white.withOpacity(0.1),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(height: 24),
+                          const SizedBox(height: 16),
 
                           // Sign Up Link
                           Row(
@@ -1513,7 +1509,9 @@ class _SignupPageState extends State<SignupPage> {
               // Scrollable Content
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width < 360 ? 16 : 24,
+                  ),
                   child: Column(
                     children: [
                       const SizedBox(height: 16),
