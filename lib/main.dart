@@ -1948,11 +1948,26 @@ class _HomePageState extends State<HomePage> {
     // Show dedicated homepage only on index 0
     if (_index == 0) {
       return Scaffold(
+        backgroundColor: darkBg,
         appBar: AppBar(
-          title: const Text('INFYNERS'),
+          backgroundColor: darkBg,
+          elevation: 0,
+          title: ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [neonCyan, electricPurple],
+            ).createShader(bounds),
+            child: Text(
+              'INFYNERS',
+              style: GoogleFonts.outfit(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+                color: Colors.white,
+              ),
+            ),
+          ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.settings),
+              icon: Icon(Icons.settings, color: neonCyan),
               tooltip: 'Settings',
               onPressed: () {
                 Navigator.of(context).push(
@@ -1961,7 +1976,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.logout),
+              icon: Icon(Icons.logout, color: Colors.white.withOpacity(0.8)),
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 themeController.setMode(ThemeMode.light);
@@ -1976,29 +1991,76 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: _buildDashboard(context),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _index,
-          onDestinationSelected: (i) => setState(() => _index = i),
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-            NavigationDestination(
-                icon: Icon(Icons.announcement), label: "Notices"),
-            NavigationDestination(
-                icon: Icon(Icons.assignment), label: "Events"),
-            NavigationDestination(icon: Icon(Icons.schedule), label: "Routine"),
-            NavigationDestination(icon: Icon(Icons.person), label: "Profile"),
-          ],
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: darkCard,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                blurRadius: 20,
+                offset: const Offset(0, -5),
+              ),
+            ],
+          ),
+          child: NavigationBar(
+            backgroundColor: Colors.transparent,
+            selectedIndex: _index,
+            onDestinationSelected: (i) => setState(() => _index = i),
+            indicatorColor: neonCyan.withOpacity(0.2),
+            destinations: [
+              NavigationDestination(
+                icon: Icon(Icons.home, color: Colors.white.withOpacity(0.6)),
+                selectedIcon: Icon(Icons.home, color: neonCyan),
+                label: "Home",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.announcement, color: Colors.white.withOpacity(0.6)),
+                selectedIcon: Icon(Icons.announcement, color: neonCyan),
+                label: "Notices",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.assignment, color: Colors.white.withOpacity(0.6)),
+                selectedIcon: Icon(Icons.assignment, color: neonCyan),
+                label: "Events",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.schedule, color: Colors.white.withOpacity(0.6)),
+                selectedIcon: Icon(Icons.schedule, color: neonCyan),
+                label: "Routine",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.person, color: Colors.white.withOpacity(0.6)),
+                selectedIcon: Icon(Icons.person, color: neonCyan),
+                label: "Profile",
+              ),
+            ],
+          ),
         ),
       );
     }
 
     // Show other pages
     return Scaffold(
+      backgroundColor: darkBg,
       appBar: AppBar(
-        title: Text(_getTitleForIndex(_index)),
+        backgroundColor: darkBg,
+        elevation: 0,
+        title: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [neonCyan, electricPurple],
+          ).createShader(bounds),
+          child: Text(
+            _getTitleForIndex(_index),
+            style: GoogleFonts.outfit(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.white,
+            ),
+          ),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: Icon(Icons.settings, color: neonCyan),
             tooltip: 'Settings',
             onPressed: () {
               Navigator.of(context).push(
@@ -2006,10 +2068,9 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
-          if (isAdmin &&
-              _index != 4) // Don't show admin buttons on Profile page
+          if (isAdmin && _index != 4) // Don't show admin buttons on Profile page
             IconButton(
-              icon: const Icon(Icons.analytics),
+              icon: Icon(Icons.analytics, color: electricPurple),
               tooltip: 'Analytics',
               onPressed: () {
                 Navigator.of(context).push(
@@ -2019,7 +2080,7 @@ class _HomePageState extends State<HomePage> {
             ),
           if (isAdmin && _index != 4)
             IconButton(
-              icon: const Icon(Icons.people),
+              icon: Icon(Icons.people, color: accentGreen),
               tooltip: 'Members',
               onPressed: () {
                 Navigator.of(context).push(
@@ -2028,7 +2089,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: Icon(Icons.logout, color: Colors.white.withOpacity(0.8)),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
               themeController.setMode(ThemeMode.light);
@@ -2043,17 +2104,50 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: pages[_index - 1], // Adjust index since we added Home
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _index,
-        onDestinationSelected: (i) => setState(() => _index = i),
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(
-              icon: Icon(Icons.announcement), label: "Notices"),
-          NavigationDestination(icon: Icon(Icons.assignment), label: "Events"),
-          NavigationDestination(icon: Icon(Icons.schedule), label: "Routine"),
-          NavigationDestination(icon: Icon(Icons.person), label: "Profile"),
-        ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: darkCard,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 20,
+              offset: const Offset(0, -5),
+            ),
+          ],
+        ),
+        child: NavigationBar(
+          backgroundColor: Colors.transparent,
+          selectedIndex: _index,
+          onDestinationSelected: (i) => setState(() => _index = i),
+          indicatorColor: neonCyan.withOpacity(0.2),
+          destinations: [
+            NavigationDestination(
+              icon: Icon(Icons.home, color: Colors.white.withOpacity(0.6)),
+              selectedIcon: Icon(Icons.home, color: neonCyan),
+              label: "Home",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.announcement, color: Colors.white.withOpacity(0.6)),
+              selectedIcon: Icon(Icons.announcement, color: neonCyan),
+              label: "Notices",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.assignment, color: Colors.white.withOpacity(0.6)),
+              selectedIcon: Icon(Icons.assignment, color: neonCyan),
+              label: "Events",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.schedule, color: Colors.white.withOpacity(0.6)),
+              selectedIcon: Icon(Icons.schedule, color: neonCyan),
+              label: "Routine",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person, color: Colors.white.withOpacity(0.6)),
+              selectedIcon: Icon(Icons.person, color: neonCyan),
+              label: "Profile",
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -2076,69 +2170,99 @@ class _HomePageState extends State<HomePage> {
   Widget _buildDashboard(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          // Welcome Header
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.secondary,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            darkBg,
+            const Color(0xFF1A1F3A),
+            electricPurple.withOpacity(0.1),
+          ],
+        ),
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Welcome Header with Glassmorphism
+            Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    neonCyan.withOpacity(0.1),
+                    electricPurple.withOpacity(0.1),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(
+                  color: neonCyan.withOpacity(0.3),
+                  width: 1.5,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: neonCyan.withOpacity(0.2),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
                 ],
               ),
-            ),
-            padding: const EdgeInsets.all(24),
-            child: StreamBuilder<DocumentSnapshot>(
-              stream: user != null
-                  ? FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(user.uid)
-                      .snapshots()
-                  : null,
-              builder: (context, snapshot) {
-                String userName = 'User';
-                if (snapshot.hasData && snapshot.data!.exists) {
-                  final data = snapshot.data!.data() as Map<String, dynamic>?;
-                  userName = data?['name'] ?? 'User';
-                }
+              child: StreamBuilder<DocumentSnapshot>(
+                stream: user != null
+                    ? FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.uid)
+                        .snapshots()
+                    : null,
+                builder: (context, snapshot) {
+                  String userName = 'User';
+                  if (snapshot.hasData && snapshot.data!.exists) {
+                    final data = snapshot.data!.data() as Map<String, dynamic>?;
+                    userName = data?['name'] ?? 'User';
+                  }
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Welcome Back,',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: Colors.white.withOpacity(0.9),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Welcome Back,',
+                        style: GoogleFonts.outfit(
+                          fontSize: 14,
+                          color: Colors.white.withOpacity(0.7),
+                          letterSpacing: 1,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      userName,
-                      style: GoogleFonts.poppins(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      const SizedBox(height: 8),
+                      ShaderMask(
+                        shaderCallback: (bounds) => LinearGradient(
+                          colors: [neonCyan, electricPurple],
+                        ).createShader(bounds),
+                        child: Text(
+                          userName,
+                          style: GoogleFonts.outfit(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now()),
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        color: Colors.white.withOpacity(0.8),
+                      const SizedBox(height: 4),
+                      Text(
+                        DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now()),
+                        style: GoogleFonts.outfit(
+                          fontSize: 13,
+                          color: Colors.white.withOpacity(0.6),
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
 
           // Stats Cards
           Padding(
@@ -2234,78 +2358,115 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 24),
         ],
       ),
+      ),
     );
   }
 
   Widget _buildStatCard(BuildContext context, IconData icon, String count,
       String label, Color color) {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: color, size: 32),
-            const SizedBox(height: 8),
-            Text(
-              count,
-              style: GoogleFonts.poppins(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-            ),
-            Text(
-              label,
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                color: Colors.grey,
-              ),
-            ),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            color.withOpacity(0.15),
+            color.withOpacity(0.05),
           ],
         ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: color.withOpacity(0.3),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.2),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color, size: 36),
+          const SizedBox(height: 12),
+          Text(
+            count,
+            style: GoogleFonts.outfit(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: GoogleFonts.outfit(
+              fontSize: 13,
+              color: Colors.white.withOpacity(0.7),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildActionCard(BuildContext context, IconData icon, String label,
       Color color, VoidCallback onTap) {
-    return Card(
-      elevation: 2,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                color.withOpacity(0.15),
-                color.withOpacity(0.05),
-              ],
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: color, size: 28),
-              const SizedBox(width: 12),
-              Text(
-                label,
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              const Spacer(),
-              Icon(Icons.arrow_forward_ios, color: color, size: 16),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              color.withOpacity(0.2),
+              color.withOpacity(0.05),
             ],
           ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: color.withOpacity(0.4),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.3),
+              blurRadius: 15,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [color.withOpacity(0.3), color.withOpacity(0.1)],
+                ),
+              ),
+              child: Icon(icon, color: color, size: 32),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.outfit(
+                fontSize: 14,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
       ),
     );
