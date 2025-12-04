@@ -380,10 +380,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Developer
 
 **Sagnik Ghosh**
-- Institution: Pabna University of Science & Technology
+- Institution: Daffodil International University
 - Department: Information and Communication Engineering
 - GitHub: [@Sagnik-ICE](https://github.com/Sagnik-ICE)
-- Email: sagnik.ice.pust@gmail.com
+- Email: dibbaysaha17@gmail.com
+- Email: dibbay242-50-014@diu.edu.bd
 
 ---
 
