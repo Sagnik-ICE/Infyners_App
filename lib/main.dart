@@ -310,9 +310,9 @@ class InfynersApp extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       navigationBarTheme: NavigationBarThemeData(
-        labelTextStyle: MaterialStateProperty.resolveWith(
+        labelTextStyle: WidgetStateProperty.resolveWith(
           (states) {
-            if (states.contains(MaterialState.selected)) {
+            if (states.contains(WidgetState.selected)) {
               return GoogleFonts.outfit(
                 color: const Color(0xFF00E5FF),
                 fontSize: 12,
@@ -632,7 +632,7 @@ class _GetStartedPageState extends State<GetStartedPage>
                       height: 56,
                       child: Container(
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [neonCyan, electricPurple],
                           ),
                           borderRadius: BorderRadius.circular(16),
@@ -717,7 +717,7 @@ class _GetStartedPageState extends State<GetStartedPage>
                       height: 56,
                       child: Container(
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [neonCyan, electricPurple],
                           ),
                           borderRadius: BorderRadius.circular(16),
@@ -1104,7 +1104,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 8),
                     ShaderMask(
-                      shaderCallback: (bounds) => LinearGradient(
+                      shaderCallback: (bounds) => const LinearGradient(
                         colors: [neonCyan, electricPurple],
                       ).createShader(bounds),
                       child: Text(
@@ -1181,7 +1181,7 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: _loading ? null : login,
                             label: _loading ? "Signing in..." : "Login",
                             isLoading: _loading,
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               colors: [neonCyan, electricPurple],
                             ),
                           ),
@@ -1211,7 +1211,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                   ShaderMask(
-                                    shaderCallback: (bounds) => LinearGradient(
+                                    shaderCallback: (bounds) => const LinearGradient(
                                       colors: [neonCyan, electricPurple],
                                     ).createShader(bounds),
                                     child: Text(
@@ -1707,7 +1707,7 @@ class _SignupPageState extends State<SignupPage> {
                                     ),
                                     ShaderMask(
                                       shaderCallback: (bounds) =>
-                                          LinearGradient(
+                                          const LinearGradient(
                                         colors: [neonCyan, electricPurple],
                                       ).createShader(bounds),
                                       child: Text(
@@ -1793,7 +1793,7 @@ class _SignupPageState extends State<SignupPage> {
         width: double.infinity,
         height: 56,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [neonCyan, electricPurple],
           ),
           borderRadius: BorderRadius.circular(14),
@@ -1975,7 +1975,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: darkBg,
           elevation: 0,
           title: ShaderMask(
-            shaderCallback: (bounds) => LinearGradient(
+            shaderCallback: (bounds) => const LinearGradient(
               colors: [neonCyan, electricPurple],
             ).createShader(bounds),
             child: Text(
@@ -1989,7 +1989,7 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.settings, color: neonCyan),
+              icon: const Icon(Icons.settings, color: neonCyan),
               tooltip: 'Settings',
               onPressed: () {
                 Navigator.of(context).push(
@@ -2027,9 +2027,9 @@ class _HomePageState extends State<HomePage> {
           child: Theme(
             data: Theme.of(context).copyWith(
               navigationBarTheme: NavigationBarThemeData(
-                labelTextStyle: MaterialStateProperty.resolveWith(
+                labelTextStyle: WidgetStateProperty.resolveWith(
                   (states) {
-                    if (states.contains(MaterialState.selected)) {
+                    if (states.contains(WidgetState.selected)) {
                       return GoogleFonts.outfit(
                         color: neonCyan,
                         fontSize: 12,
@@ -2051,7 +2051,7 @@ class _HomePageState extends State<HomePage> {
               onDestinationSelected: (i) => setState(() => _index = i),
               indicatorColor: neonCyan.withOpacity(0.2),
               labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-              destinations: [
+              destinations: const [
                 NavigationDestination(
                   icon: Icon(Icons.home, color: Colors.white),
                   selectedIcon: Icon(Icons.home, color: neonCyan, size: 28),
@@ -2093,7 +2093,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: darkBg,
         elevation: 0,
         title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
+          shaderCallback: (bounds) => const LinearGradient(
             colors: [neonCyan, electricPurple],
           ).createShader(bounds),
           child: Text(
@@ -2107,7 +2107,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings, color: neonCyan),
+            icon: const Icon(Icons.settings, color: neonCyan),
             tooltip: 'Settings',
             onPressed: () {
               Navigator.of(context).push(
@@ -2118,7 +2118,7 @@ class _HomePageState extends State<HomePage> {
           if (isAdmin &&
               _index != 4) // Don't show admin buttons on Profile page
             IconButton(
-              icon: Icon(Icons.analytics, color: electricPurple),
+              icon: const Icon(Icons.analytics, color: electricPurple),
               tooltip: 'Analytics',
               onPressed: () {
                 Navigator.of(context).push(
@@ -2128,7 +2128,7 @@ class _HomePageState extends State<HomePage> {
             ),
           if (isAdmin && _index != 4)
             IconButton(
-              icon: Icon(Icons.people, color: accentGreen),
+              icon: const Icon(Icons.people, color: accentGreen),
               tooltip: 'Members',
               onPressed: () {
                 Navigator.of(context).push(
@@ -2166,9 +2166,9 @@ class _HomePageState extends State<HomePage> {
         child: Theme(
           data: Theme.of(context).copyWith(
             navigationBarTheme: NavigationBarThemeData(
-              labelTextStyle: MaterialStateProperty.resolveWith(
+              labelTextStyle: WidgetStateProperty.resolveWith(
                 (states) {
-                  if (states.contains(MaterialState.selected)) {
+                  if (states.contains(WidgetState.selected)) {
                     return GoogleFonts.outfit(
                       color: neonCyan,
                       fontSize: 12,
@@ -2190,7 +2190,7 @@ class _HomePageState extends State<HomePage> {
             onDestinationSelected: (i) => setState(() => _index = i),
             indicatorColor: neonCyan.withOpacity(0.2),
             labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-            destinations: [
+            destinations: const [
               NavigationDestination(
                 icon: Icon(Icons.home, color: Colors.white),
                 selectedIcon: Icon(Icons.home, color: neonCyan, size: 28),
@@ -2310,7 +2310,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 8),
                       ShaderMask(
-                        shaderCallback: (bounds) => LinearGradient(
+                        shaderCallback: (bounds) => const LinearGradient(
                           colors: [neonCyan, electricPurple],
                         ).createShader(bounds),
                         child: Text(
@@ -2683,10 +2683,10 @@ class _NoticePageState extends State<NoticePage> {
               color: Colors.grey.shade700,
               fontSize: 14,
             ),
-            prefixIcon: Icon(Icons.search, color: neonCyan),
+            prefixIcon: const Icon(Icons.search, color: neonCyan),
             suffixIcon: _searchQuery.isNotEmpty
                 ? IconButton(
-                    icon: Icon(Icons.clear, color: Colors.white),
+                    icon: const Icon(Icons.clear, color: Colors.white),
                     onPressed: () => search.clear(),
                   )
                 : null,
@@ -2696,7 +2696,7 @@ class _NoticePageState extends State<NoticePage> {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
             ),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: neonCyan, width: 2),
             ),
           ),
@@ -2727,7 +2727,7 @@ class _NoticePageState extends State<NoticePage> {
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
                 ),
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: neonCyan, width: 2),
                 ),
               ),
@@ -2750,14 +2750,14 @@ class _NoticePageState extends State<NoticePage> {
                   color: Colors.grey.shade600,
                   fontSize: 14,
                 ),
-                prefixIcon: Icon(Icons.link, color: neonCyan),
+                prefixIcon: const Icon(Icons.link, color: neonCyan),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: neonCyan.withOpacity(0.3)),
                 ),
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: neonCyan, width: 2),
                 ),
               ),
@@ -2821,12 +2821,22 @@ class _NoticePageState extends State<NoticePage> {
                       Expanded(
                         child: TextField(
                           controller: ctrl,
-                          style: TextStyle(color: Colors.white, fontSize: 16),
+                          style: TextStyle(
+                            color: Colors.grey.shade900,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                           decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
                             labelText: 'Option ${idx + 1}',
                             labelStyle: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.grey.shade700,
                               fontSize: 14,
+                            ),
+                            hintText: 'Enter option ${idx + 1}',
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade600,
                             ),
                             border: OutlineInputBorder(
                               borderSide:
@@ -2836,7 +2846,7 @@ class _NoticePageState extends State<NoticePage> {
                               borderSide:
                                   BorderSide(color: neonCyan.withOpacity(0.3)),
                             ),
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: neonCyan, width: 2),
                             ),
                             isDense: true,
@@ -2859,7 +2869,7 @@ class _NoticePageState extends State<NoticePage> {
                 );
               }),
               TextButton.icon(
-                icon: Icon(Icons.add, color: neonCyan),
+                icon: const Icon(Icons.add, color: neonCyan),
                 label: Text('Add Option',
                     style: GoogleFonts.outfit(
                       color: neonCyan,
@@ -2894,16 +2904,18 @@ class _NoticePageState extends State<NoticePage> {
               .orderBy('time', descending: true)
               .snapshots(),
           builder: (context, snap) {
-            if (!snap.hasData)
+            if (!snap.hasData) {
               return const Center(child: CircularProgressIndicator());
+            }
             final docs = snap.data!.docs;
-            if (docs.isEmpty)
+            if (docs.isEmpty) {
               return Center(
                   child: Text('No notices yet',
                       style: GoogleFonts.outfit(
                         fontSize: 18,
                         color: Colors.white.withOpacity(0.7),
                       )));
+            }
 
             // Filter by search query
             final filtered = _searchQuery.isEmpty
@@ -3329,7 +3341,7 @@ class _NoticeCardState extends State<NoticeCard> {
                             Expanded(
                               child: Text(
                                 widget.attachmentUrl!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: neonCyan,
                                   decoration: TextDecoration.underline,
                                   fontSize: 12,
@@ -3909,7 +3921,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
       body: _loading
-          ? Center(child: CircularProgressIndicator(color: neonCyan))
+          ? const Center(child: CircularProgressIndicator(color: neonCyan))
           : Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -3988,7 +4000,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           _nameCtrl.text.isNotEmpty
                                               ? _nameCtrl.text[0].toUpperCase()
                                               : '?',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 48,
                                             color: neonCyan,
                                             fontWeight: FontWeight.bold,
@@ -4004,7 +4016,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       shape: BoxShape.circle,
                                       color: Colors.black.withOpacity(0.5),
                                     ),
-                                    child: Center(
+                                    child: const Center(
                                       child: CircularProgressIndicator(
                                         color: neonCyan,
                                       ),
@@ -4017,7 +4029,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    gradient: LinearGradient(
+                                    gradient: const LinearGradient(
                                       colors: [neonCyan, electricPurple],
                                     ),
                                     border: Border.all(color: darkBg, width: 3),
@@ -4099,7 +4111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               if (!_loading)
                                 IconButton(
                                   icon: _saving
-                                      ? SizedBox(
+                                      ? const SizedBox(
                                           width: 20,
                                           height: 20,
                                           child: CircularProgressIndicator(
@@ -4347,7 +4359,7 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: darkBg,
         elevation: 0,
         title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
+          shaderCallback: (bounds) => const LinearGradient(
             colors: [neonCyan, electricPurple],
           ).createShader(bounds),
           child: Text(
@@ -4360,7 +4372,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -4419,7 +4431,7 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Column(
                 children: [
                   SwitchListTile(
-                    secondary: Icon(
+                    secondary: const Icon(
                       Icons.announcement,
                       color: neonCyan,
                     ),
@@ -4440,7 +4452,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     height: 1,
                   ),
                   SwitchListTile(
-                    secondary: Icon(
+                    secondary: const Icon(
                       Icons.event,
                       color: neonCyan,
                     ),
@@ -4465,15 +4477,28 @@ class _SettingsPageState extends State<SettingsPage> {
             // Account & Security Section
             _buildSectionHeader(context, 'Account & Security', Icons.security),
             Card(
+              color: darkCard,
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.lock,
-                        color: Theme.of(context).colorScheme.primary),
-                    title: const Text('Change Password'),
-                    subtitle: const Text('Update your account password'),
-                    trailing: const Icon(Icons.chevron_right),
+                    leading: const Icon(Icons.lock, color: neonCyan),
+                    title: Text(
+                      'Change Password',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Update your account password',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: 13,
+                      ),
+                    ),
+                    trailing:
+                        const Icon(Icons.chevron_right, color: neonCyan),
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -4481,18 +4506,30 @@ class _SettingsPageState extends State<SettingsPage> {
                       );
                     },
                   ),
-                  const Divider(height: 1, indent: 72),
+                  Divider(height: 1, indent: 72,
+                      color: Colors.white.withOpacity(0.08)),
                   ListTile(
-                    leading: Icon(Icons.email,
-                        color: Theme.of(context).colorScheme.primary),
-                    title: const Text('Email'),
-                    subtitle: Text(FirebaseAuth.instance.currentUser?.email ??
-                        'Not available'),
+                    leading: const Icon(Icons.email, color: neonCyan),
+                    title: Text(
+                      'Email',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: Text(
+                      FirebaseAuth.instance.currentUser?.email ??
+                          'Not available',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: 13,
+                      ),
+                    ),
                     trailing: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.1),
+                        color: Colors.green.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Text(
@@ -4513,11 +4550,12 @@ class _SettingsPageState extends State<SettingsPage> {
             // About Section
             _buildSectionHeader(context, 'About', Icons.info),
             Card(
+              color: darkCard,
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.info_outline, color: neonCyan),
+                    leading: const Icon(Icons.info_outline, color: neonCyan),
                     title: Text(
                       'About INFYNERS',
                       style: GoogleFonts.outfit(
@@ -4531,7 +4569,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: Colors.white.withOpacity(0.7),
                       ),
                     ),
-                    trailing: Icon(Icons.chevron_right, color: neonCyan),
+                    trailing: const Icon(Icons.chevron_right, color: neonCyan),
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const AboutUsPage()),
@@ -4543,7 +4581,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       indent: 72,
                       color: Colors.white.withOpacity(0.1)),
                   ListTile(
-                    leading: Icon(Icons.policy, color: neonCyan),
+                    leading: const Icon(Icons.policy, color: neonCyan),
                     title: Text(
                       'Privacy Policy',
                       style: GoogleFonts.outfit(
@@ -4557,7 +4595,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: Colors.white.withOpacity(0.7),
                       ),
                     ),
-                    trailing: Icon(Icons.chevron_right, color: neonCyan),
+                    trailing: const Icon(Icons.chevron_right, color: neonCyan),
                     onTap: () {
                       showDialog(
                         context: context,
@@ -4612,7 +4650,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       indent: 72,
                       color: Colors.white.withOpacity(0.1)),
                   ListTile(
-                    leading: Icon(Icons.article, color: neonCyan),
+                    leading: const Icon(Icons.article, color: neonCyan),
                     title: Text(
                       'Terms of Service',
                       style: GoogleFonts.outfit(
@@ -4626,7 +4664,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: Colors.white.withOpacity(0.7),
                       ),
                     ),
-                    trailing: Icon(Icons.chevron_right, color: neonCyan),
+                    trailing: const Icon(Icons.chevron_right, color: neonCyan),
                     onTap: () {
                       showDialog(
                         context: context,
@@ -4681,11 +4719,24 @@ class _SettingsPageState extends State<SettingsPage> {
                       );
                     },
                   ),
-                  const Divider(height: 1, indent: 72),
+                  Divider(height: 1, indent: 72,
+                      color: Colors.white.withOpacity(0.1)),
                   ListTile(
                     leading: const Icon(Icons.badge, color: Colors.grey),
-                    title: const Text('App Version'),
-                    subtitle: const Text('1.0.0+1'),
+                    title: Text(
+                      'App Version',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '1.0.0+1',
+                      style: GoogleFonts.outfit(
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: 13,
+                      ),
+                    ),
                     trailing: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
@@ -4768,14 +4819,43 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkBg,
       appBar: AppBar(
-        title: const Text('About Us'),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        backgroundColor: darkBg,
+        elevation: 0,
+        title: ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [neonCyan, electricPurple],
+          ).createShader(bounds),
+          child: Text(
+            'About Us',
+            style: GoogleFonts.outfit(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              darkBg,
+              const Color(0xFF1A1F3A),
+              electricPurple.withOpacity(0.1),
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
             // App Header
             Container(
               width: double.infinity,
@@ -4919,6 +4999,7 @@ class AboutUsPage extends StatelessWidget {
                   _buildSectionTitle(context, 'Developer', Icons.code),
                   const SizedBox(height: 12),
                   Card(
+                    color: darkCard,
                     elevation: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(20),
@@ -4927,11 +5008,11 @@ class AboutUsPage extends StatelessWidget {
                           CircleAvatar(
                             radius: 50,
                             backgroundColor:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            child: Icon(
+                                Theme.of(context).colorScheme.primary,
+                            child: const Icon(
                               Icons.person,
                               size: 50,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Colors.white,
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -4940,6 +5021,7 @@ class AboutUsPage extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -4947,11 +5029,11 @@ class AboutUsPage extends StatelessWidget {
                             'Software Developer',
                             style: GoogleFonts.poppins(
                               fontSize: 14,
-                              color: Colors.grey.shade600,
+                              color: Colors.white.withOpacity(0.7),
                             ),
                           ),
                           const SizedBox(height: 20),
-                          Divider(color: Colors.grey.shade300),
+                          Divider(color: Colors.white.withOpacity(0.1)),
                           const SizedBox(height: 16),
                           _buildInfoRow(
                               Icons.badge, 'Student ID', '242-50-014'),
@@ -4965,19 +5047,18 @@ class AboutUsPage extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.blue.shade50,
-                                  Colors.indigo.shade50,
-                                ],
+                              gradient: const LinearGradient(
+                                colors: [neonCyan, electricPurple],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.lightbulb_outline,
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: Colors.white,
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
@@ -4986,6 +5067,7 @@ class AboutUsPage extends StatelessWidget {
                                     style: GoogleFonts.poppins(
                                       fontSize: 12,
                                       fontStyle: FontStyle.italic,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -5003,6 +5085,7 @@ class AboutUsPage extends StatelessWidget {
                   _buildSectionTitle(context, 'Built With', Icons.build),
                   const SizedBox(height: 12),
                   Card(
+                    color: darkCard,
                     elevation: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(20),
@@ -5027,6 +5110,7 @@ class AboutUsPage extends StatelessWidget {
                       context, 'Get in Touch', Icons.contact_mail),
                   const SizedBox(height: 12),
                   Card(
+                    color: darkCard,
                     elevation: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(20),
@@ -5037,6 +5121,7 @@ class AboutUsPage extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                               fontSize: 14,
+                              color: Colors.white.withOpacity(0.8),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -5054,8 +5139,7 @@ class AboutUsPage extends StatelessWidget {
                             icon: const Icon(Icons.email),
                             label: const Text('Send Feedback'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
+                              backgroundColor: electricPurple,
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 24, vertical: 12),
@@ -5098,7 +5182,8 @@ class AboutUsPage extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),
+  );
   }
 
   Widget _buildSectionTitle(BuildContext context, String title, IconData icon) {
@@ -5158,7 +5243,7 @@ class AboutUsPage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 20, color: Colors.grey.shade600),
+        Icon(icon, size: 20, color: neonCyan),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
@@ -5168,7 +5253,7 @@ class AboutUsPage extends StatelessWidget {
                 label,
                 style: GoogleFonts.poppins(
                   fontSize: 12,
-                  color: Colors.grey.shade600,
+                  color: Colors.white.withOpacity(0.7),
                 ),
               ),
               const SizedBox(height: 2),
@@ -5177,6 +5262,7 @@ class AboutUsPage extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
+                  color: Colors.white,
                 ),
               ),
             ],
@@ -5195,7 +5281,7 @@ class AboutUsPage extends StatelessWidget {
             width: 8,
             height: 8,
             decoration: const BoxDecoration(
-              color: Colors.indigo,
+              color: neonCyan,
               shape: BoxShape.circle,
             ),
           ),
@@ -5209,13 +5295,14 @@ class AboutUsPage extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
+                    color: Colors.white,
                   ),
                 ),
                 Text(
                   description,
                   style: GoogleFonts.poppins(
                     fontSize: 12,
-                    color: Colors.grey.shade600,
+                    color: Colors.white.withOpacity(0.75),
                   ),
                 ),
               ],
@@ -5313,93 +5400,162 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkBg,
       appBar: AppBar(
-        title: const Text('Change Password'),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        backgroundColor: darkBg,
+        elevation: 0,
+        title: ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [neonCyan, electricPurple],
+          ).createShader(bounds),
+          child: Text(
+            'Change Password',
+            style: GoogleFonts.outfit(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Enter your current password and choose a new one',
-              style: TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 24),
-            TextField(
-              controller: _currentPasswordCtrl,
-              obscureText: !_showCurrentPassword,
-              decoration: InputDecoration(
-                labelText: 'Current Password',
-                prefixIcon: const Icon(Icons.lock_outline),
-                suffixIcon: IconButton(
-                  icon: Icon(_showCurrentPassword
-                      ? Icons.visibility_off
-                      : Icons.visibility),
-                  onPressed: () => setState(
-                      () => _showCurrentPassword = !_showCurrentPassword),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              darkBg,
+              const Color(0xFF1A1F3A),
+              electricPurple.withOpacity(0.1),
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Enter your current password and choose a new one',
+                style: GoogleFonts.outfit(
+                  color: Colors.white.withOpacity(0.8),
+                  fontSize: 14,
                 ),
-                border: const OutlineInputBorder(),
               ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _newPasswordCtrl,
-              obscureText: !_showNewPassword,
-              decoration: InputDecoration(
-                labelText: 'New Password',
-                prefixIcon: const Icon(Icons.lock),
-                suffixIcon: IconButton(
-                  icon: Icon(_showNewPassword
-                      ? Icons.visibility_off
-                      : Icons.visibility),
-                  onPressed: () =>
-                      setState(() => _showNewPassword = !_showNewPassword),
+              const SizedBox(height: 24),
+              _glassField(
+                controller: _currentPasswordCtrl,
+                label: 'Current Password',
+                icon: Icons.lock_outline,
+                obscure: !_showCurrentPassword,
+                toggle: () => setState(
+                    () => _showCurrentPassword = !_showCurrentPassword),
+              ),
+              const SizedBox(height: 16),
+              _glassField(
+                controller: _newPasswordCtrl,
+                label: 'New Password',
+                icon: Icons.lock,
+                helper: 'At least 6 characters',
+                obscure: !_showNewPassword,
+                toggle: () =>
+                    setState(() => _showNewPassword = !_showNewPassword),
+              ),
+              const SizedBox(height: 16),
+              _glassField(
+                controller: _confirmPasswordCtrl,
+                label: 'Confirm New Password',
+                icon: Icons.lock,
+                obscure: !_showConfirmPassword,
+                toggle: () => setState(
+                    () => _showConfirmPassword = !_showConfirmPassword),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: _loading ? null : _changePassword,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: electricPurple,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: _loading
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                              color: Colors.white, strokeWidth: 2),
+                        )
+                      : Text(
+                          'Change Password',
+                          style: GoogleFonts.outfit(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
                 ),
-                border: const OutlineInputBorder(),
-                helperText: 'At least 6 characters',
               ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _confirmPasswordCtrl,
-              obscureText: !_showConfirmPassword,
-              decoration: InputDecoration(
-                labelText: 'Confirm New Password',
-                prefixIcon: const Icon(Icons.lock),
-                suffixIcon: IconButton(
-                  icon: Icon(_showConfirmPassword
-                      ? Icons.visibility_off
-                      : Icons.visibility),
-                  onPressed: () => setState(
-                      () => _showConfirmPassword = !_showConfirmPassword),
-                ),
-                border: const OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-                onPressed: _loading ? null : _changePassword,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo,
-                  foregroundColor: Colors.white,
-                ),
-                child: _loading
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                            color: Colors.white, strokeWidth: 2),
-                      )
-                    : const Text('Change Password'),
-              ),
-            ),
-          ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _glassField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    String? helper,
+    required bool obscure,
+    required VoidCallback toggle,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: neonCyan.withOpacity(0.35), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: neonCyan.withOpacity(0.12),
+            blurRadius: 14,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: TextField(
+        controller: controller,
+        obscureText: obscure,
+        style: GoogleFonts.outfit(
+          color: Colors.grey.shade900,
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: GoogleFonts.outfit(
+            color: Colors.grey.shade700,
+            fontWeight: FontWeight.w600,
+          ),
+          prefixIcon: Icon(icon, color: neonCyan),
+          suffixIcon: IconButton(
+            icon: Icon(obscure ? Icons.visibility : Icons.visibility_off,
+                color: Colors.grey.shade700),
+            onPressed: toggle,
+          ),
+          hintStyle: GoogleFonts.outfit(color: Colors.grey.shade600),
+          helperText: helper,
+          helperStyle:
+              GoogleFonts.outfit(color: Colors.grey.shade700, fontSize: 12),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+              horizontal: 14, vertical: 16),
         ),
       ),
     );
@@ -5418,7 +5574,7 @@ class AnalyticsPage extends StatelessWidget {
         backgroundColor: darkBg,
         elevation: 0,
         title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
+          shaderCallback: (bounds) => const LinearGradient(
             colors: [neonCyan, electricPurple],
           ).createShader(bounds),
           child: Text(
@@ -5431,7 +5587,7 @@ class AnalyticsPage extends StatelessWidget {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -5497,7 +5653,7 @@ class AnalyticsPage extends StatelessWidget {
                     ),
                     child: ListTile(
                       leading:
-                          Icon(Icons.announcement, size: 40, color: neonCyan),
+                          const Icon(Icons.announcement, size: 40, color: neonCyan),
                       title: Text('Total Notices',
                           style: GoogleFonts.outfit(
                               fontWeight: FontWeight.bold,
@@ -5552,7 +5708,7 @@ class AnalyticsPage extends StatelessWidget {
                       ],
                     ),
                     child: ListTile(
-                      leading: Icon(Icons.event, size: 40, color: accentGreen),
+                      leading: const Icon(Icons.event, size: 40, color: accentGreen),
                       title: Text('Total Events',
                           style: GoogleFonts.outfit(
                               fontWeight: FontWeight.bold,
@@ -5608,7 +5764,7 @@ class AnalyticsPage extends StatelessWidget {
                       ],
                     ),
                     child: ListTile(
-                      leading: Icon(Icons.comment, size: 40, color: accentPink),
+                      leading: const Icon(Icons.comment, size: 40, color: accentPink),
                       title: Text('Total Comments',
                           style: GoogleFonts.outfit(
                               fontWeight: FontWeight.bold,
@@ -5654,7 +5810,7 @@ class AnalyticsPage extends StatelessWidget {
                       ],
                     ),
                     child: ListTile(
-                      leading: Icon(Icons.how_to_vote,
+                      leading: const Icon(Icons.how_to_vote,
                           size: 40, color: electricPurple),
                       title: Text('Total Poll Votes',
                           style: GoogleFonts.outfit(
@@ -5856,13 +6012,16 @@ class _ExamPageState extends State<ExamPage> {
       Fluttertoast.showToast(msg: 'Please enter at least one field');
       return;
     }
-    if (quizCtrl.text.trim().isNotEmpty)
+    if (quizCtrl.text.trim().isNotEmpty) {
       await postIndividualExam(
           'Quiz / Assignment / Presentation', quizCtrl.text, _quizDate);
-    if (midCtrl.text.trim().isNotEmpty)
+    }
+    if (midCtrl.text.trim().isNotEmpty) {
       await postIndividualExam('Mid Exam', midCtrl.text, _midDate);
-    if (finalCtrl.text.trim().isNotEmpty)
+    }
+    if (finalCtrl.text.trim().isNotEmpty) {
       await postIndividualExam('Final Exam', finalCtrl.text, _finalDate);
+    }
 
     quizCtrl.clear();
     midCtrl.clear();
@@ -6023,13 +6182,20 @@ class _ExamPageState extends State<ExamPage> {
                 maxLines: 4,
                 textInputAction: TextInputAction.newline,
                 style: GoogleFonts.outfit(
-                  color: Colors.white,
+                  color: Colors.grey.shade900,
                   fontSize: 14,
+                  fontWeight: FontWeight.w500,
                 ),
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
                   labelText: 'Quiz / Assignment / Presentation',
                   labelStyle: GoogleFonts.outfit(
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.grey.shade700,
+                  ),
+                  hintText: 'Enter quiz/assignment details',
+                  hintStyle: GoogleFonts.outfit(
+                    color: Colors.grey.shade600,
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -6041,16 +6207,13 @@ class _ExamPageState extends State<ExamPage> {
                       color: neonCyan.withOpacity(0.3),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: neonCyan,
                       width: 2,
                     ),
                   ),
                   alignLabelWithHint: true,
-                  hintStyle: GoogleFonts.outfit(
-                    color: Colors.white.withOpacity(0.5),
-                  ),
                 ),
               ),
               const SizedBox(height: 4),
@@ -6098,20 +6261,28 @@ class _ExamPageState extends State<ExamPage> {
                     onPressed: () => setState(() => _quizDate = null),
                   ),
               ]),
-              const SizedBox(height: 8),
-              // Mid exam
+
+              const SizedBox(height: 10),
+
+              // Mid Exam
               TextField(
                 controller: midCtrl,
-                maxLines: 4,
-                textInputAction: TextInputAction.newline,
+                maxLines: 3,
                 style: GoogleFonts.outfit(
-                  color: Colors.white,
+                  color: Colors.grey.shade900,
                   fontSize: 14,
+                  fontWeight: FontWeight.w500,
                 ),
                 decoration: InputDecoration(
-                  labelText: 'Mid Exam Details',
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelText: 'Mid Exam',
                   labelStyle: GoogleFonts.outfit(
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.grey.shade700,
+                  ),
+                  hintText: 'Enter mid-term details',
+                  hintStyle: GoogleFonts.outfit(
+                    color: Colors.grey.shade600,
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -6123,15 +6294,11 @@ class _ExamPageState extends State<ExamPage> {
                       color: neonCyan.withOpacity(0.3),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: neonCyan,
                       width: 2,
                     ),
-                  ),
-                  alignLabelWithHint: true,
-                  hintStyle: GoogleFonts.outfit(
-                    color: Colors.white.withOpacity(0.5),
                   ),
                 ),
               ),
@@ -6173,25 +6340,35 @@ class _ExamPageState extends State<ExamPage> {
                 if (_midDate != null)
                   IconButton(
                     icon: const Icon(Icons.clear, size: 16),
+                    iconSize: 16,
+                    color: accentPink,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     onPressed: () => setState(() => _midDate = null),
                   ),
               ]),
-              const SizedBox(height: 8),
-              // Final exam
+
+              const SizedBox(height: 10),
+
+              // Final Exam
               TextField(
                 controller: finalCtrl,
-                maxLines: 4,
-                textInputAction: TextInputAction.newline,
+                maxLines: 3,
                 style: GoogleFonts.outfit(
-                  color: Colors.white,
+                  color: Colors.grey.shade900,
                   fontSize: 14,
+                  fontWeight: FontWeight.w500,
                 ),
                 decoration: InputDecoration(
-                  labelText: 'Final Exam Details',
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelText: 'Final Exam',
                   labelStyle: GoogleFonts.outfit(
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.grey.shade700,
+                  ),
+                  hintText: 'Enter final exam details',
+                  hintStyle: GoogleFonts.outfit(
+                    color: Colors.grey.shade600,
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -6203,15 +6380,11 @@ class _ExamPageState extends State<ExamPage> {
                       color: neonCyan.withOpacity(0.3),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: neonCyan,
                       width: 2,
                     ),
-                  ),
-                  alignLabelWithHint: true,
-                  hintStyle: GoogleFonts.outfit(
-                    color: Colors.white.withOpacity(0.5),
                   ),
                 ),
               ),
@@ -6260,6 +6433,7 @@ class _ExamPageState extends State<ExamPage> {
                     onPressed: () => setState(() => _finalDate = null),
                   ),
               ]),
+
               const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
@@ -6291,8 +6465,9 @@ class _ExamPageState extends State<ExamPage> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('exams').snapshots(),
       builder: (context, snap) {
-        if (!snap.hasData)
+        if (!snap.hasData) {
           return const Center(child: CircularProgressIndicator());
+        }
 
         final events = snap.data!.docs.where((doc) {
           final data = doc.data() as Map<String, dynamic>;
@@ -6475,10 +6650,11 @@ class _ExamPageState extends State<ExamPage> {
           .orderBy('time', descending: true)
           .snapshots(),
       builder: (context, snap) {
-        if (!snap.hasData)
+        if (!snap.hasData) {
           return const Center(child: CircularProgressIndicator());
+        }
         final docs = snap.data!.docs;
-        if (docs.isEmpty)
+        if (docs.isEmpty) {
           return Center(
             child: Text(
               'No exam info yet',
@@ -6488,6 +6664,7 @@ class _ExamPageState extends State<ExamPage> {
               ),
             ),
           );
+        }
 
         // Filter by search query and type
         final filtered = docs.where((doc) {
@@ -6627,7 +6804,7 @@ class _RoutinePageState extends State<RoutinePage> {
   String selectedDay = 'Sunday';
   bool isAdmin = false;
 
-  final times = [
+  final List<String> defaultTimes = const [
     '8:20 - 9:50',
     '9:50 - 11:20',
     '11:20 - 12:50',
@@ -6635,11 +6812,14 @@ class _RoutinePageState extends State<RoutinePage> {
     '2:40 - 4:10',
   ];
 
+  List<String> times = [];
+
   Map<String, List<Map<String, String>>> routineData = {};
 
   @override
   void initState() {
     super.initState();
+    times = List.from(defaultTimes);
     _init();
   }
 
@@ -6654,26 +6834,65 @@ class _RoutinePageState extends State<RoutinePage> {
         .collection('routines')
         .doc(selectedDay)
         .get();
+    List<Map<String, String>> slots;
+    List<String> storedTimes = List.from(defaultTimes);
+
     if (snap.exists) {
-      final raw = snap['data'] as List<dynamic>? ?? [];
-      routineData[selectedDay] =
-          raw.map((e) => Map<String, String>.from(e as Map)).toList();
+      final data = snap.data() as Map<String, dynamic>;
+      final raw = data['data'] as List<dynamic>? ?? [];
+      slots = raw.map((e) => Map<String, String>.from(e as Map)).toList();
+
+      final fetchedTimes = (data['times'] as List?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [];
+      if (fetchedTimes.isNotEmpty) {
+        storedTimes = fetchedTimes;
+      }
     } else {
-      routineData[selectedDay] = List.generate(
-          times.length, (_) => {'course': '', 'teacher': '', 'room': ''});
+      slots = List.generate(
+          defaultTimes.length, (_) => {'course': '', 'teacher': '', 'room': ''});
     }
-    setState(() {});
+
+    final targetLength = storedTimes.length;
+    if (slots.length < targetLength) {
+      slots.addAll(List.generate(
+          targetLength - slots.length,
+          (_) => {'course': '', 'teacher': '', 'room': ''}));
+    } else if (slots.length > targetLength) {
+      for (var i = storedTimes.length; i < slots.length; i++) {
+        storedTimes.add('Slot ${i + 1}');
+      }
+    }
+
+    setState(() {
+      times = storedTimes;
+      routineData[selectedDay] = slots;
+    });
   }
 
   Future<void> saveRoutine() async {
-    final dataToSave = routineData[selectedDay] ??
+    final currentSlots = routineData[selectedDay] ??
         List.generate(
             times.length, (_) => {'course': '', 'teacher': '', 'room': ''});
+
+    // Keep slot count aligned with time slots
+    if (currentSlots.length < times.length) {
+      currentSlots.addAll(List.generate(
+          times.length - currentSlots.length,
+          (_) => {'course': '', 'teacher': '', 'room': ''}));
+    } else if (currentSlots.length > times.length) {
+      for (var i = times.length; i < currentSlots.length; i++) {
+        times.add('Slot ${i + 1}');
+      }
+    }
+
     await FirebaseFirestore.instance
         .collection('routines')
         .doc(selectedDay)
         .set({
-      'data': dataToSave,
+      'data': currentSlots,
+      'times': times,
       'updatedAt': FieldValue.serverTimestamp(),
     });
     Fluttertoast.showToast(msg: 'Routine updated for $selectedDay');
@@ -6684,6 +6903,9 @@ class _RoutinePageState extends State<RoutinePage> {
     final courseCtrl = TextEditingController(text: slot['course']);
     final teacherCtrl = TextEditingController(text: slot['teacher']);
     final roomCtrl = TextEditingController(text: slot['room']);
+    final timeCtrl = TextEditingController(
+      text: index < times.length ? times[index] : '',
+    );
 
     showDialog(
       context: context,
@@ -6701,6 +6923,11 @@ class _RoutinePageState extends State<RoutinePage> {
             TextField(
                 controller: roomCtrl,
                 decoration: const InputDecoration(labelText: 'Room')),
+            const SizedBox(height: 12),
+            TextField(
+              controller: timeCtrl,
+              decoration: const InputDecoration(labelText: 'Time Slot'),
+            ),
           ]),
           actions: [
             TextButton(
@@ -6708,6 +6935,15 @@ class _RoutinePageState extends State<RoutinePage> {
                 child: const Text('Cancel')),
             ElevatedButton(
               onPressed: () async {
+                final newTime = timeCtrl.text.trim();
+                if (newTime.isNotEmpty) {
+                  if (index < times.length) {
+                    times[index] = newTime;
+                  } else {
+                    times.add(newTime);
+                  }
+                }
+
                 routineData[selectedDay]![index] = {
                   'course': courseCtrl.text.trim(),
                   'teacher': teacherCtrl.text.trim(),
@@ -6731,8 +6967,8 @@ class _RoutinePageState extends State<RoutinePage> {
   @override
   Widget build(BuildContext context) {
     final daySlots = routineData[selectedDay] ??
-        List.generate(
-            times.length, (_) => {'course': '', 'teacher': '', 'room': ''});
+      List.generate(
+        times.length, (_) => {'course': '', 'teacher': '', 'room': ''});
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(children: [
@@ -6791,7 +7027,7 @@ class _RoutinePageState extends State<RoutinePage> {
             if (isAdmin)
               Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [neonCyan, electricPurple],
                   ),
                   borderRadius: BorderRadius.circular(8),
@@ -6974,18 +7210,24 @@ class _MembersPageState extends State<MembersPage> {
       for (final doc in members) {
         final data = doc.data() as Map<String, dynamic>;
         final row = <String>[];
-        if (_selectedFields.contains('name'))
+        if (_selectedFields.contains('name')) {
           row.add(data['name']?.toString() ?? '-');
-        if (_selectedFields.contains('registrationId'))
+        }
+        if (_selectedFields.contains('registrationId')) {
           row.add(data['registrationId']?.toString() ?? '-');
-        if (_selectedFields.contains('department'))
+        }
+        if (_selectedFields.contains('department')) {
           row.add(data['department']?.toString() ?? '-');
-        if (_selectedFields.contains('bloodGroup'))
+        }
+        if (_selectedFields.contains('bloodGroup')) {
           row.add(data['bloodGroup']?.toString() ?? '-');
-        if (_selectedFields.contains('mobile'))
+        }
+        if (_selectedFields.contains('mobile')) {
           row.add(data['mobile']?.toString() ?? '-');
-        if (_selectedFields.contains('email'))
+        }
+        if (_selectedFields.contains('email')) {
           row.add(data['email']?.toString() ?? '-');
+        }
         rows.add(row);
       }
 
@@ -7334,7 +7576,7 @@ class _MembersPageState extends State<MembersPage> {
         backgroundColor: darkBg,
         elevation: 0,
         title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
+          shaderCallback: (bounds) => const LinearGradient(
             colors: [neonCyan, electricPurple],
           ).createShader(bounds),
           child: Text(
@@ -7347,7 +7589,7 @@ class _MembersPageState extends State<MembersPage> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -7541,7 +7783,7 @@ class _MembersPageState extends State<MembersPage> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
+                                gradient: const LinearGradient(
                                   colors: [accentPink, electricPurple],
                                 ),
                                 borderRadius: BorderRadius.circular(12),
